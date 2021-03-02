@@ -1,0 +1,61 @@
+<app-header titulo="Mi cuenta"></app-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+
+    <ion-card>
+      <div class="center" *ngIf="usuario.foto != null">
+        <img src="https://www.avar-construcciones.com/sistema/img/users/{{usuario.foto}}"
+        alt="" width="100" height="100">
+      </div>
+      <div class="center" *ngIf="usuario.foto == null">
+        <img src="/assets/user.png" width="100" height="100">
+      </div>
+  
+      <ion-card-header>
+        <div class="center">
+          <ion-card-subtitle>{{usuario.tipouser}}</ion-card-subtitle>
+          <h5>{{usuario.name}}</h5>
+        </div>
+        
+  
+        <form (ngSubmit)="editDatos()">
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="12">
+                  <ion-label>Nueva Contraseña</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">
+                  <ion-input type="text" [(ngModel)]="usuario.password" name="password"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">
+                <ion-button type="submit" 
+                    expand="block" 
+                    fill="solid" 
+                    shape="round"
+                    color="primary"
+                    size="small"
+                    >
+                Guardar
+                </ion-button>
+              </ion-col>
+            </ion-row>
+           <ion-row class="center">
+             <ion-col size="12">
+                <ion-button (click)="salir()" color="danger" shape="round" size="small">
+                  Cerrar Sesión
+                </ion-button>
+             </ion-col>
+           </ion-row>
+          </ion-grid>
+        </form>
+      </ion-card-header>
+    </ion-card>
+  </ion-content>

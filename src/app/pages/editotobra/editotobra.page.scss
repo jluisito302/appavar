@@ -1,0 +1,41 @@
+
+ion-input{
+    border-radius: 15px;
+    background: #F2F4F4;
+}
+
+ion-input.azul{
+    background: #FDFEFE;
+}
+
+ion-label{
+    position: center;
+}
+
+ion-datetime{
+    background: #F2F4F4;
+    border-radius: 15px;
+}
+
+.bottom{
+    padding-bottom: 10px;
+}
+
+b{
+    color: red;
+}
+
+ion-textarea{
+    background: #F2F4F4;
+    border-radius: 15px;
+}
+
+ion-select{
+    background: #F2F4F4;
+    border-radius: 15px;
+}
+
+ion-row.header{
+    align-items: center;
+    text-align: center;;
+}

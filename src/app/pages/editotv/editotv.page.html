@@ -1,0 +1,710 @@
+<app-header titulo="Editar (OT) Vehiculos"></app-header>
+
+<ion-content>
+    <form (ngSubmit)="editOT()">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-label><b>* </b>Folio</ion-label>
+              <ion-input autofocus required name="folio" type="text"
+              [(ngModel)]="ot.folio"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-label><b>* </b>Fecha </ion-label>
+                <ion-datetime displayFormat="YYYY MM DD"
+                placeholder="(Año-mes-día)" 
+                doneText="Aceptar"
+                cancelText="Cancelar"
+                required
+                name="fecha" [(ngModel)]="ot.fecha">
+                </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+                <ion-label><b>* </b>Vehiculo</ion-label>
+                <ion-select interface="popover" name="num_economico" [(ngModel)]="ot.vehiculo">
+                  <ion-select-option *ngFor="let vehi of allv | async" 
+                  value="{{ vehi.num_economico }}">{{ vehi.num_economico }}</ion-select-option>
+                </ion-select>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Conductor</ion-label>
+              <ion-input name="conductor" disabled [(ngModel)]="ot.conductor"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="6">
+                  <ion-label><b>* </b>Turno</ion-label>
+                      <ion-select interface="popover" placeholder="Seleccionar"
+                      value="{{ot.turno}}" name="turno" (ionChange)="optionsFn($event, 'turno')">
+                          <ion-select-option value="1">1</ion-select-option>
+                          <ion-select-option value="2">2</ion-select-option>
+                      </ion-select>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+                <ion-label><b>* </b>Hora Inicial</ion-label>
+                <ion-input type="text" name="d_hora_inicial" [(ngModel)]="ot.d_hora_inicial"></ion-input>
+            </ion-col>
+            <ion-col size="6">
+                <ion-label><b>* </b>Hora Final</ion-label>
+                <ion-input type="text" name="d_hora_final" [(ngModel)]="ot.d_hora_final"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Kilometraje Inicial</ion-label>
+              <ion-input name="kilometraje_ini" [(ngModel)]="ot.kilometraje_ini"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Kilometraje Final</ion-label>
+              <ion-input name="kilometraje_final" [(ngModel)]="ot.kilometraje_final"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Ubicación Inicial</ion-label>
+              <ion-input name="d_ubicacion_ini" [(ngModel)]="ot.d_ubicacion_ini"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Ubicación Final</ion-label>
+              <ion-input name="ubicacion_final" [(ngModel)]="ot.ubicacion_final"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">Reporte de Consumo en Litros</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Combustible</ion-label>
+              <ion-input name="combustible" [(ngModel)]="ot.combustible"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Aceite Hidraulico</ion-label>
+              <ion-input name="aceite_hidraulico" [(ngModel)]="ot.aceite_hidraulico"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Aceite de Transmisión</ion-label>
+              <ion-input name="aceite_transmision" [(ngModel)]="ot.aceite_transmision"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Aceite de Motor</ion-label>
+              <ion-input name="aceite_motor" [(ngModel)]="ot.aceite_motor"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">Trabajo Realizado</ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-card color="secondary">
+            <ion-item color="secondary">
+                <ion-label>Códigos de Operaciones</ion-label>
+            </ion-item>
+            <ion-card-content>
+              <ion-label>R101 Traslado de Personal</ion-label>
+              <br>
+              <ion-label>R102 Traslado de Material</ion-label>
+              <br>
+              <ion-label>R103 Traslado de Equipos</ion-label>
+              <br>
+              <ion-label>R104 Otros</ion-label>
+            </ion-card-content>
+          </ion-card>
+
+
+                <ion-row>
+                    <ion-col size="6">
+                      <ion-label> Codigo Operación</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-select interface="popover"
+                        [value]="ot.cod_operacion1" (ionChange)="optionsFn($event, 'cod_operacion1')">
+                          <ion-select-option value="R101">Traslado de Personal</ion-select-option>
+                          <ion-select-option value="R102">Traslado de Material</ion-select-option>
+                          <ion-select-option value="R103">Traslado de Equipos</ion-select-option>
+                          <ion-select-option value="R104">Otros</ion-select-option>
+                        </ion-select>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-label>Nivel</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-input type="text" name="nivel1" [(ngModel)]="ot.nivel1"></ion-input>
+                  </ion-col>
+                  </ion-row>
+                <ion-row>
+                      <ion-col size="6">
+                      <ion-label>Lugar</ion-label>  
+                      </ion-col>
+                      <ion-col size="6">
+                      <ion-input type="text" name="lugar1" [(ngModel)]="ot.lugar1"></ion-input>
+                      </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                      <ion-label>Empresa</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-input type="text" name="empresa1" [(ngModel)]="ot.empresa1"></ion-input>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                  <ion-label>Hora Inicial</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-input type="text" name="hora_inicial1" 
+                      [(ngModel)]="ot.hora_inicial1"></ion-input> 
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                  <ion-label>Hora Final</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-input type="text" name="hora_final1" 
+                      [(ngModel)]="ot.hora_final1"></ion-input> 
+                  </ion-col>
+                </ion-row>
+               <ion-row class="bottom">
+                  <ion-col size="6">
+                      <ion-label>Breve Descripción</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-input type="text" name="b_descripcion1" [(ngModel)]="ot.b_descripcion1"></ion-input>
+                  </ion-col>
+               </ion-row>
+                <ion-row *ngIf="(cont >= 2) || ot.cod_operacion2 != null">
+                    <ion-col size="6">
+                      <ion-label> Codigo Operación</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                      <ion-select interface="popover"
+                        [value]="ot.cod_operacion2" (ionChange)="optionsFn($event, 'cod_operacion2')">
+                          <ion-select-option value="R101">Traslado de Personal</ion-select-option>
+                          <ion-select-option value="R102">Traslado de Material</ion-select-option>
+                          <ion-select-option value="R103">Traslado de Equipos</ion-select-option>
+                          <ion-select-option value="R104">Otros</ion-select-option>
+                      </ion-select>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="cont >= 2 || ot.cod_operacion2 != null">
+                  <ion-col size="6">
+                    <ion-label>Nivel</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-input type="text" name="nivel2" [(ngModel)]="ot.nivel2"></ion-input>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="cont >= 2 || ot.cod_operacion2 != null">
+                      <ion-col size="6">
+                      <ion-label>Lugar</ion-label>  
+                      </ion-col>
+                      <ion-col size="6">
+                      <ion-input type="text" name="lugar2" [(ngModel)]="ot.lugar2"></ion-input>
+                      </ion-col>
+                </ion-row>
+                <ion-row *ngIf="cont >= 2 || ot.cod_operacion2 != null">
+                  <ion-col size="6">
+                      <ion-label>Empresa</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-input type="text" name="empresa2" [(ngModel)]="ot.empresa2"></ion-input>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="cont >= 2 || ot.cod_operacion2 != null">
+                  <ion-col size="6">
+                  <ion-label>Hora Inicial</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-input type="text" name="hora_inicial2" 
+                      [(ngModel)]="ot.hora_inicial2"></ion-input> 
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="cont >= 2 || ot.cod_operacion2 != null">
+                  <ion-col size="6">
+                  <ion-label>Hora Final</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-input type="text" name="hora_final2" 
+                      [(ngModel)]="ot.hora_final2"></ion-input> 
+                  </ion-col>
+                </ion-row>
+               <ion-row *ngIf="cont >= 2 || ot.cod_operacion2 != null" class="bottom">
+                  <ion-col size="6">
+                      <ion-label>Breve Descripción</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-input type="text" name="b_descripcion2" [(ngModel)]="ot.b_descripcion2"></ion-input>
+                  </ion-col>
+               </ion-row>
+               <ion-row *ngIf="cont >= 3 || ot.cod_operacion3 != null">
+                <ion-col size="6">
+                  <ion-label> Codigo Operación</ion-label>  
+                </ion-col>
+                <ion-col size="6">
+                      <ion-select interface="popover"
+                        [value]="ot.cod_operacion3" (ionChange)="optionsFn($event, 'cod_operacion3')">
+                          <ion-select-option value="R101">Traslado de Personal</ion-select-option>
+                          <ion-select-option value="R102">Traslado de Material</ion-select-option>
+                          <ion-select-option value="R103">Traslado de Equipos</ion-select-option>
+                          <ion-select-option value="R104">Otros</ion-select-option>
+                      </ion-select>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 3 || ot.cod_operacion3 != null">
+              <ion-col size="6">
+                <ion-label>Nivel</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="nivel3" [(ngModel)]="ot.nivel3"></ion-input>
+              </ion-col>
+              </ion-row>
+            <ion-row *ngIf="cont >= 3 || ot.cod_operacion3 != null">
+                  <ion-col size="6">
+                  <ion-label>Lugar</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                  <ion-input type="text" name="lugar3" [(ngModel)]="ot.lugar3"></ion-input>
+                  </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 3 || ot.cod_operacion3 != null">
+              <ion-col size="6">
+                  <ion-label>Empresa</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                  <ion-input type="text" name="empresa3" [(ngModel)]="ot.empresa3"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 3 || ot.cod_operacion3 != null">
+              <ion-col size="6">
+              <ion-label>Hora Inicial</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                    <ion-input type="text" name="hora_inicial3" 
+                      [(ngModel)]="ot.hora_inicial3"></ion-input> 
+              </ion-col>
+            </ion-row>
+           <ion-row *ngIf="cont >= 3 || ot.cod_operacion3 != null">
+              <ion-col size="6">
+                <ion-label>Hora Final</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                    <ion-input type="text" name="hora_final3" 
+                      [(ngModel)]="ot.hora_final3"></ion-input> 
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 3 || ot.cod_operacion3 != null" class="bottom">
+              <ion-col size="6">
+                  <ion-label>Breve Descripción</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                  <ion-input type="text" name="b_descripcion3" [(ngModel)]="ot.b_descripcion3"></ion-input>
+              </ion-col>
+           </ion-row>
+            <ion-row *ngIf="cont >= 4 || ot.cod_operacion4 != null">
+                <ion-col size="6">
+                  <ion-label> Codigo Operación</ion-label>  
+                </ion-col>
+                <ion-col size="6">
+                      <ion-select interface="popover"
+                        [value]="ot.cod_operacion4" (ionChange)="optionsFn($event, 'cod_operacion4')">
+                          <ion-select-option value="R101">Traslado de Personal</ion-select-option>
+                          <ion-select-option value="R102">Traslado de Material</ion-select-option>
+                          <ion-select-option value="R103">Traslado de Equipos</ion-select-option>
+                          <ion-select-option value="R104">Otros</ion-select-option>
+                      </ion-select>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 4 || ot.cod_operacion4 != null">
+              <ion-col size="6">
+                <ion-label>Nivel</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="nivel4" [(ngModel)]="ot.nivel4"></ion-input>
+              </ion-col>
+              </ion-row>
+            <ion-row *ngIf="cont >= 4 || ot.cod_operacion4 != null">
+                  <ion-col size="6">
+                  <ion-label>Lugar</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                  <ion-input type="text" name="lugar4" [(ngModel)]="ot.lugar4"></ion-input>
+                  </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 4 || ot.cod_operacion4 != null">
+              <ion-col size="6">
+                  <ion-label>Empresa</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                  <ion-input type="text" name="empresa4" [(ngModel)]="ot.empresa4"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 4 || ot.cod_operacion4 != null">
+              <ion-col size="6">
+                <ion-label>Hora Inicial</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                    <ion-input type="text" name="hora_inicial4" 
+                      [(ngModel)]="ot.hora_inicial4"></ion-input> 
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 4 || ot.cod_operacion4 != null">
+              <ion-col size="6">
+                <ion-label>Hora Final</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="hora_final4" 
+                      [(ngModel)]="ot.hora_final4"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 4 || ot.cod_operacion4 != null" class="bottom">
+              <ion-col size="6">
+                  <ion-label>Breve Descripción</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                  <ion-input type="text" name="b_descripcion4" [(ngModel)]="ot.b_descripcion4"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 5 || ot.cod_operacion5 != null">
+                <ion-col size="6">
+                  <ion-label> Codigo Operación</ion-label>  
+                </ion-col>
+                <ion-col size="6">
+                  <ion-select interface="popover"
+                  [value]="ot.cod_operacion5" (ionChange)="optionsFn($event, 'cod_operacion5')">
+                    <ion-select-option value="R101">Traslado de Personal</ion-select-option>
+                    <ion-select-option value="R102">Traslado de Material</ion-select-option>
+                    <ion-select-option value="R103">Traslado de Equipos</ion-select-option>
+                    <ion-select-option value="R104">Otros</ion-select-option>
+                </ion-select>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 5 || ot.cod_operacion5 != null">
+              <ion-col size="6">
+                <ion-label>Nivel</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="nivel5" [(ngModel)]="ot.nivel5"></ion-input>
+              </ion-col>
+              </ion-row>
+            <ion-row *ngIf="cont >= 5 || ot.cod_operacion5 != null">
+                  <ion-col size="6">
+                  <ion-label>Lugar</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                  <ion-input type="text" name="lugar5" [(ngModel)]="ot.lugar5"></ion-input>
+                  </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 5 || ot.cod_operacion5 != null">
+              <ion-col size="6">
+                  <ion-label>Empresa</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                  <ion-input type="text" name="empresa5" [(ngModel)]="ot.empresa5"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 5 || ot.cod_operacion5 != null"> 
+              <ion-col size="6">
+                <ion-label>Hora Inicial</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="hora_inicial5" 
+                      [(ngModel)]="ot.hora_inicial5"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 5 || ot.cod_operacion5 != null">
+              <ion-col size="6">
+                <ion-label>Hora Final</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="hora_final5" 
+                [(ngModel)]="ot.hora_final5"></ion-input>
+              </ion-col>
+            </ion-row>
+           <ion-row *ngIf="cont >= 5 || ot.cod_operacion5 != null" class="bottom">
+              <ion-col size="6">
+                  <ion-label>Breve Descripción</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                  <ion-input type="text" name="b_descripcion5" [(ngModel)]="ot.b_descripcion5"></ion-input>
+              </ion-col>
+           </ion-row>
+            <ion-row *ngIf="cont >= 6 || ot.cod_operacion6 != null">
+                <ion-col size="6">
+                  <ion-label> Codigo Operación</ion-label>  
+                </ion-col>
+                <ion-col size="6">
+                  <ion-select interface="popover"
+                    [value]="ot.cod_operacion6" (ionChange)="optionsFn($event, 'cod_operacion6')">
+                      <ion-select-option value="R101">Traslado de Personal</ion-select-option>
+                      <ion-select-option value="R102">Traslado de Material</ion-select-option>
+                      <ion-select-option value="R103">Traslado de Equipos</ion-select-option>
+                      <ion-select-option value="R104">Otros</ion-select-option>
+                  </ion-select>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 6 || ot.cod_operacion6 != null">
+              <ion-col size="6">
+                <ion-label>Nivel</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="nivel6" [(ngModel)]="ot.nivel6"></ion-input>
+              </ion-col>
+              </ion-row>
+            <ion-row *ngIf="cont >= 6 || ot.cod_operacion6 != null">
+                  <ion-col size="6">
+                  <ion-label>Lugar</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                  <ion-input type="text" name="lugar6" [(ngModel)]="ot.lugar6"></ion-input>
+                  </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 6 || ot.cod_operacion6 != null">
+              <ion-col size="6">
+                  <ion-label>Empresa</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                  <ion-input type="text" name="empresa6" [(ngModel)]="ot.empresa6"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 6 || ot.cod_operacion6 != null">
+              <ion-col size="6">
+              <ion-label>Hora Inicial</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="hora_inicial6" 
+                [(ngModel)]="ot.hora_inicial6"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 6 || ot.cod_operacion6 != null">
+              <ion-col size="6">
+              <ion-label>Hora Final</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="hora_final6" 
+                [(ngModel)]="ot.hora_final6"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 6 || ot.cod_operacion6 != null" class="bottom">
+                <ion-col size="6">
+                    <ion-label>Breve Descripción</ion-label>  
+                </ion-col>
+                <ion-col size="6">
+                    <ion-input type="text" name="b_descripcion6" [(ngModel)]="ot.b_descripcion6"></ion-input>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 7 || ot.cod_operacion7 != null">
+                <ion-col size="6">
+                  <ion-label> Codigo Operación</ion-label>  
+                </ion-col>
+                <ion-col size="6">
+                  <ion-select interface="popover"
+                    [value]="ot.cod_operacion7" (ionChange)="optionsFn($event, 'cod_operacion7')">
+                      <ion-select-option value="R101">Traslado de Personal</ion-select-option>
+                      <ion-select-option value="R102">Traslado de Material</ion-select-option>
+                      <ion-select-option value="R103">Traslado de Equipos</ion-select-option>
+                      <ion-select-option value="R104">Otros</ion-select-option>
+                  </ion-select>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 7 || ot.cod_operacion7 != null">
+              <ion-col size="6">
+                <ion-label>Nivel</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="nivel7" [(ngModel)]="ot.nivel7"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 7 || ot.cod_operacion7 != null">
+                  <ion-col size="6">
+                  <ion-label>Lugar</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                  <ion-input type="text" name="lugar7" [(ngModel)]="ot.lugar7"></ion-input>
+                  </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 7 || ot.cod_operacion7 != null">
+              <ion-col size="6">
+                  <ion-label>Empresa</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                  <ion-input type="text" name="empresa7" [(ngModel)]="ot.empresa7"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 7 || ot.cod_operacion7 != null">
+              <ion-col size="6">
+              <ion-label>Hora Inicial</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="hora_inicial7" 
+                [(ngModel)]="ot.hora_inicial7"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 7 || ot.cod_operacion7 != null">
+              <ion-col size="6">
+              <ion-label>Hora Final</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="hora_final7" 
+                [(ngModel)]="ot.hora_final7"></ion-input>
+              </ion-col>
+            </ion-row>
+           <ion-row *ngIf="cont >= 7 || ot.cod_operacion7 != null" class="bottom">
+              <ion-col size="6">
+                  <ion-label>Breve Descripción</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                  <ion-input type="text" name="b_descripcion7" [(ngModel)]="ot.b_descripcion7"></ion-input>
+              </ion-col>
+           </ion-row>
+            <ion-row *ngIf="cont >= 8 || ot.cod_operacion8 != null">
+                <ion-col size="6">
+                  <ion-label> Codigo Operación</ion-label>  
+                </ion-col>
+                <ion-col size="6">
+                  <ion-select interface="popover"
+                  [value]="ot.cod_operacion8" (ionChange)="optionsFn($event, 'cod_operacion8')">
+                    <ion-select-option value="R101">Traslado de Personal</ion-select-option>
+                    <ion-select-option value="R102">Traslado de Material</ion-select-option>
+                    <ion-select-option value="R103">Traslado de Equipos</ion-select-option>
+                    <ion-select-option value="R104">Otros</ion-select-option>
+                  </ion-select>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 8 || ot.cod_operacion8 != null">
+              <ion-col size="6">
+                <ion-label>Nivel</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="nivel8" [(ngModel)]="ot.nivel8"></ion-input>
+              </ion-col>
+              </ion-row>
+            <ion-row *ngIf="cont >= 8 || ot.cod_operacion8 != null">
+                  <ion-col size="6">
+                  <ion-label>Lugar</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                  <ion-input type="text" name="lugar8" [(ngModel)]="ot.lugar8"></ion-input>
+                  </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 8 || ot.cod_operacion8 != null">
+              <ion-col size="6">
+                  <ion-label>Empresa</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                  <ion-input type="text" name="empresa8" [(ngModel)]="ot.empresa8"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 8 || ot.cod_operacion8 != null">
+              <ion-col size="6">
+              <ion-label>Hora Inicial</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="hora_inicial8" 
+                [(ngModel)]="ot.hora_inicial8"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="cont >= 8 || ot.cod_operacion8 != null">
+              <ion-col size="6">
+              <ion-label>Hora Final</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="hora_final8" 
+                [(ngModel)]="ot.hora_final8"></ion-input>
+              </ion-col>
+            </ion-row>
+           <ion-row *ngIf="cont >= 8 || ot.cod_operacion8 != null" class="bottom">
+              <ion-col size="6">
+                  <ion-label>Breve Descripción</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                  <ion-input type="text" name="b_descripcion8" [(ngModel)]="ot.b_descripcion8"></ion-input>
+              </ion-col>
+           </ion-row>
+           <ion-row>
+            <ion-col size="12">
+              <ion-button  
+              size="small"
+              shape="round"
+              color="primary"
+              (click)="sumar()"
+              >
+              Agregar
+              </ion-button>
+              <ion-button  
+              size="small"
+              shape="round"
+              color="danger"
+              (click)="restar()"
+              >
+              Remover
+              </ion-button>
+            </ion-col>
+           </ion-row>
+           <ion-row>
+               <ion-col size="12">
+                    <ion-label>Observaciones</ion-label>
+               </ion-col>
+           </ion-row>
+           <ion-row>
+            <ion-col size="12">
+                 <ion-textarea name="observaciones" [(ngModel)]="ot.observaciones"></ion-textarea>
+            </ion-col>
+          </ion-row>
+           
+         <ion-row>
+            <ion-col size="6">
+                <ion-label><b>* </b>Fecha de entrega de servicio</ion-label> 
+                <ion-datetime displayFormat="YYYY MM DD"
+                placeholder="" 
+                doneText="Aceptar"
+                cancelText="Cancelar"
+                required
+                name="fecha_entrega" [(ngModel)]="ot.fecha_entrega">
+                </ion-datetime> 
+            </ion-col>
+            <ion-col size="6">
+                <ion-label><b>* </b>Hora de entrega de servicio</ion-label>
+                <ion-input type="text" name="hora_entrega" [(ngModel)]="ot.hora_entrega"></ion-input>
+            </ion-col>
+         </ion-row>
+         <ion-row>
+            <ion-col size="6">
+                <ion-label><b>* </b>Nombre del Supervisor Avar</ion-label> 
+                <ion-input type="text" name="nombre_sup_avar" 
+                [(ngModel)]="ot.nombre_sup_avar"></ion-input> 
+            </ion-col>
+            <ion-col size="6">
+                <ion-label><b>* </b>Nombre del Contratista</ion-label>
+                <ion-input type="text" name="nombre_contratista" 
+                [(ngModel)]="ot.nombre_contratista"></ion-input>
+            </ion-col>
+         </ion-row>
+         <ion-row>
+            <ion-col size="12">
+              <ion-button type="submit" 
+                    expand="block" 
+                    fill="solid" 
+                    shape="round"
+                    color="primary"
+                    >
+              Guardar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+    </form>
+</ion-content>
+

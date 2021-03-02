@@ -1,0 +1,123 @@
+<app-header titulo="Administración"></app-header>
+
+<ion-content>
+  
+  <ion-item>
+    <ion-label>Validar Labores (Créditos)</ion-label>
+  </ion-item>
+  <ion-row>
+    <ion-col size="6">
+        <ion-card [routerLink]="['/histabonos']">
+            <div class="center">
+                <ion-icon name="card-outline" class="iconos"></ion-icon>
+            </div>
+            <ion-card-content>
+                <h2>Historial de abonos</h2>
+            </ion-card-content>
+        </ion-card>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/regabonos']">
+          <div class="center">
+              <ion-icon name="card-outline" class="iconos"></ion-icon>
+          </div>
+          <ion-card-content>
+              <h2>Registrar Abono</h2>
+          </ion-card-content>
+      </ion-card>
+  </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/verproveedores']">
+          <div class="center">
+              <ion-icon name="cube-outline" class="iconos"></ion-icon>
+          </div>
+          <ion-card-content>
+              <h2>Ver proveedores</h2>
+          </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-item>
+    <ion-label>Nominas & Listas de raya</ion-label>
+  </ion-item>
+  <ion-row>
+    <ion-col size="6">
+        <ion-card [routerLink]="['/histnominas']">
+            <div class="center">
+                <ion-icon name="cash-outline" class="iconos"></ion-icon>
+            </div>
+            <ion-card-content>
+                <h2>Nominas guardadas</h2>
+            </ion-card-content>
+        </ion-card>
+    </ion-col>
+    <ion-col size="6">
+        <ion-card [routerLink]="['/listasrayas']">
+            <div class="center">
+                <ion-icon name="cash-outline" class="iconos"></ion-icon>
+            </div>
+            <ion-card-content>
+                <h2>Listas de raya guardadas</h2>
+            </ion-card-content>
+        </ion-card>
+    </ion-col>
+</ion-row>
+
+  <ion-item>
+    <ion-label>Cobros de Obras</ion-label>
+  </ion-item>
+  <ion-row>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/showcobros']">
+          <div class="center">
+              <ion-icon name="home-outline" class="iconos"></ion-icon>
+          </div>
+          <ion-card-content>
+              <h2>Historial de cobros</h2>
+          </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-item>
+    <ion-label>Renta de Maquinaria</ion-label>
+  </ion-item>
+  <ion-row>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/rentampesada']">
+          <div class="center">
+              <ion-icon name="subway-outline" class="iconos"></ion-icon>
+          </div>
+          <ion-card-content>
+              <h2>Maquinaria Pesada</h2>
+          </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/rentmligera']">
+          <div class="center">
+              <ion-icon name="watch-outline" class="iconos"></ion-icon>
+          </div>
+          <ion-card-content>
+              <h2>Maquinaria Ligera</h2>
+          </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-item>
+    <ion-label>Moviliario</ion-label>
+  </ion-item>
+  <ion-row>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/moviliario']">
+          <div class="center">
+              <ion-icon name="desktop-outline" class="iconos"></ion-icon>
+          </div>
+          <ion-card-content>
+              <h2>Ver moviliario</h2>
+          </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

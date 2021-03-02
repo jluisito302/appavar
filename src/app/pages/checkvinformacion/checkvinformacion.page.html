@@ -1,0 +1,70 @@
+<app-header titulo="Check-List Vehiculos"></app-header>
+
+<ion-content>
+  <ion-segment (ionChange)="segmentChanged($event)" value="ayer">
+    <ion-segment-button value="ayer">
+      <ion-label>Ayer</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="recientes">
+      <ion-label>Recientes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="todos">
+      <ion-label>Todos</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="4">
+        <ion-input (ionChange)="buscar($event)" placeholder="Buscar...">
+          <ion-icon name="search"></ion-icon>
+        </ion-input>
+      </ion-col>
+      <ion-col size="8">
+        <ion-chip color="primary" (click)="folio()">
+          <ion-label>Folio</ion-label>
+        </ion-chip>
+        <ion-chip color="primary" (click)="fecha()">
+          <ion-label>Fecha</ion-label>
+        </ion-chip>
+        <ion-chip color="primary" (click)="vehiculo()">
+          <ion-label>Vehiculo</ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  <ion-list>
+    <ion-item-sliding #lista *ngFor="let check of arreglo$ | async | filtro: textBuscar: columna">
+      <ion-item>
+        <ion-label>
+          <h2>Folio: {{ check.folio }}</h2>
+          <h3>Vehiculo: {{ check.vehiculo }}</h3>
+        </ion-label>
+        <ion-label slot="end" text-right>
+          <h2>Fecha: {{ check.fecha }}</h2>
+          <h3 class="valido" *ngIf="check.revisado_valido != null">
+            <ion-icon name="checkmark-done"></ion-icon>
+              Validado
+          </h3>
+        </ion-label>
+      </ion-item>
+      
+
+      <ion-item-options side="start" *ngIf="check.revisado_valido == null">
+        <ion-item-option  routerLink="/editcheck/{{ check.id }}">
+          <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item-options side="end">
+        <ion-item-option color="warning"  routerLink="/vercheckv/{{ check.id }}">
+          <ion-icon name="eye-outline" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+  </ion-list>
+
+</ion-content>

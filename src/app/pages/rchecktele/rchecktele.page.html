@@ -1,0 +1,659 @@
+<app-header titulo="Registrar Check-List"></app-header>
+
+<ion-content>
+    <form (ngSubmit)="saveCheck()">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <ion-label><b>* </b>Folio</ion-label>
+              <ion-input autofocus required name="folio" type="text"
+              [(ngModel)]="check.folio"></ion-input>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label><b>* </b>Fecha</ion-label>
+                <ion-datetime displayFormat="YYYY MM DD"
+                placeholder="(Año-mes-día)" 
+                doneText="Aceptar"
+                cancelText="Cancelar"
+                required
+                name="fecha" [(ngModel)]="check.fecha">
+                </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-label><b>* </b>Manipulador</ion-label>
+                <ion-select interface="popover" name="vehiculo" [(ngModel)]="check.manipulador">
+                  <ion-select-option *ngFor="let mani of manip$ | async" value="{{ mani.num_economico }}">{{ mani.num_economico }}</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">Registro de Paradas</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-label>Codigo de Parada</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-select interface="popover" name="codigo_parada1" 
+                 (ionChange)="optionsFn($event, 'codigo_parada1')"
+                >
+                  <ion-select-option value="M501">M501	Abastecimiento de combustible</ion-select-option>
+                  <ion-select-option value="M502">M502	Traslado por abastecimiento</ion-select-option>
+                  <ion-select-option value="M503">M503	Desplazamiento entre niveles</ion-select-option>
+                  <ion-select-option value="M504">M504	Obstrucción de via</ion-select-option>
+                  <ion-select-option value="M505">M505	Ventilación deficiente</ion-select-option>
+                  <ion-select-option value="M506">M506	Desate de roca con percusión</ion-select-option>
+                  <ion-select-option value="M507">M507	Mantenimiento en la rampa</ion-select-option>
+                  <ion-select-option value="M508">M508	Falta de combustible</ion-select-option>
+                  <ion-select-option value="M509">M509	Mala orden al operador</ion-select-option>
+                  <ion-select-option value="M510">M510	Falta de área</ion-select-option>
+                  <ion-select-option value="M511">M511	Falta de Operador</ion-select-option>
+    
+                  <ion-select-option value="M201">M201	Espera de Mec. o Electicista</ion-select-option>
+                  <ion-select-option value="M202">M202	Reparación Mecanica o Electrica</ion-select-option>
+                  <ion-select-option value="M301">M301	Mantenimiento Programado</ion-select-option>
+    
+                  <ion-select-option value="M401">M401	Comida</ion-select-option>
+                  <ion-select-option value="M402">M402	Pueble de guardia</ion-select-option>
+                  <ion-select-option value="M403">M403	Chequeo de equipo(CHEK-LIST)</ion-select-option>
+                  <ion-select-option value="M404">M404	Platica de seguridad</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-label>Hora de Inicio</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                    picker-format="H:mm A" 
+                    value="" name="p_hora_inicio1" placeholder="ej: 11:25 AM"
+                    [(ngModel)]="check.p_hora_inicio1">
+              </ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Hora de Término</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                    picker-format="H:mm A" 
+                    value="" name="p_hora_termino1" placeholder="ej: 14:25 PM"
+                    [(ngModel)]="check.p_hora_termino1">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="(cont >=2)">
+            <ion-col size="12">
+              <ion-label>Codigo de Parada</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="(cont >=2)">
+            <ion-col size="12">
+              <ion-select interface="popover" name="codigo_parada2" 
+                 (ionChange)="optionsFn($event, 'codigo_parada2')"
+                >
+                  <ion-select-option value="M501">M501	Abastecimiento de Combustible</ion-select-option>
+                  <ion-select-option value="M502">M502	Traslado por abastecimiento</ion-select-option>
+                  <ion-select-option value="M503">M503	Desplazamiento entre niveles</ion-select-option>
+                  <ion-select-option value="M504">M504	Obstrucción de via</ion-select-option>
+                  <ion-select-option value="M505">M505	Ventilación deficiente</ion-select-option>
+                  <ion-select-option value="M506">M506	Desate de rocas</ion-select-option>
+                  <ion-select-option value="M507">M507	Mantenimiento en la rampa</ion-select-option>
+                  <ion-select-option value="M508">M508	Falta de combustible</ion-select-option>
+                  <ion-select-option value="M509">M509	Mala orden al operador</ion-select-option>
+                  <ion-select-option value="M510">M510	Falta de area</ion-select-option>
+                  <ion-select-option value="M511">M511	Falta de Operador</ion-select-option>
+    
+                  <ion-select-option value="M201">M201	Espera de Mec. o Electicista</ion-select-option>
+                  <ion-select-option value="M202">M202	Reparación Mecanica o Electrica</ion-select-option>
+                  <ion-select-option value="M301">M301	Mantenimiento Programado</ion-select-option>
+    
+                  <ion-select-option value="M401">M401	Comida</ion-select-option>
+                  <ion-select-option value="M402">M402	Pueble de guardia</ion-select-option>
+                  <ion-select-option value="M403">M403	Chequeo de equipo(CHEK-LIST)</ion-select-option>
+                  <ion-select-option value="M404">M404	Platica de seguridad</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="(cont >=2)">
+            <ion-col size="6">
+              <ion-label>Hora de Inicio</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                    picker-format="H:mm A" 
+                    value="" name="p_hora_inicio2" placeholder="ej: 11:25 AM"
+                    [(ngModel)]="check.p_hora_inicio2">
+              </ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Hora de Término</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                    picker-format="H:mm A" 
+                    value="" name="p_hora_termino2" placeholder="ej: 14:25 PM"
+                    [(ngModel)]="check.p_hora_termino2">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-button  
+              size="small"
+              shape="round"
+              color="primary"
+              (click)="agregar()"
+              >
+              <ion-icon name="add-outline"></ion-icon>
+              </ion-button>
+              <ion-button  
+              size="small"
+              shape="round"
+              color="danger"
+              (click)="remover()"
+              >
+              <ion-icon name="close-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">CHECK LIST MANIPULADOR</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Verificar torreta</ion-label>
+                <ion-select interface="popover" (ionChange)="optionsFn($event, 'verificar_torreta')" 
+                 name="verificar_torreta" [value]="check.verificar_torreta">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Verificar claxon</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'verificar_claxon')" 
+                 name="verificar_claxon" [value]="check.verificar_claxon">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Revisar Freno de estacionamiento</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'freno_estacionamiento')" 
+                 name="freno_estacionamiento" [value]="check.freno_estacionamiento">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Revisar Freno de Servicio</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'freno_servicio')" 
+                 name="freno_servicio" [value]="check.freno_servicio">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Funcionamiento de Freno (PARKING)</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'freno_parking')" 
+                 name="freno_parking" [value]="check.freno_parking">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Verificar alarma de reversa</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'alarma_reversa')" 
+                 name="alarma_reversa" [value]="check.alarma_reversa">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>V. estado de asiento y cinturón de seguridad</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'estado_asiento_cinturon')" 
+                 name="estado_asiento_cinturon" [value]="check.estado_asiento_cinturon">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>V. funcionamiento de estabilizadores</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'funcionamiento_estabilizadores')" 
+                 name="funcionamiento_estabilizadores" [value]="check.funcionamiento_estabilizadores">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>V. retracción de extensión de la pluma</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'retraccion_extension_pluma')" 
+                 name="retraccion_extension_pluma" [value]="check.retraccion_extension_pluma">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>V. montaje de canastilla en cuchillas</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'montaje_canastilla_cuchillas')" 
+                 name="montaje_canastilla_cuchillas" [value]="check.montaje_canastilla_cuchillas">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>V. funcionamiento de luces y faros</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'luces_faros')" 
+                 name="luces_faros" [value]="check.luces_faros">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Verificar extintor manual</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'extintor_manual')" 
+                 name="extintor_manual" [value]="check.extintor_manual">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>V. articulación de ruedas (Sistema de cangrejo)</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'articulacion_ruedas')" 
+                 name="articulacion_ruedas" [value]="check.articulacion_ruedas">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>V. funcionamiento de panel de control</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'panel_control')" 
+                 name="panel_control" [value]="check.panel_control">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Revisar nivel de combustible</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'nivel_combustible')" 
+                 name="nivel_combustible" [value]="check.nivel_combustible">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Revisar nivel de aceite de motor</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'nivel_aceite_motor')" 
+                 name="nivel_aceite_motor" [value]="check.nivel_aceite_motor">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Revisar nivel de aceite hidráulico</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'nivel_aceite_hidraulico')" 
+                 name="nivel_aceite_hidraulico" [value]="check.nivel_aceite_hidraulico">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Revisar nivel de aceite de transmisión</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'nivel_aceite_transmision')" 
+                 name="nivel_aceite_transmision" [value]="check.nivel_aceite_transmision">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Revisar nivel de anticongelante</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'nivel_anticongelante')" 
+                 name="nivel_anticongelante" [value]="check.nivel_anticongelante">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Revisar nivel de mandos finales</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'nivel_mandos_finales')" 
+                 name="nivel_mandos_finales" [value]="check.nivel_mandos_finales">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Inspeccionar alrededor de la unidad (Golpes al equipo)</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'nivel_mandos_finales')" 
+                 name="nivel_mandos_finales" [value]="check.inspeccionar_golpes_equipo">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Inspeccionar indicador de servicio a filtros de aire</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'indicador_serv_filtros_aire')" 
+                 name="indicador_serv_filtros_aire" [value]="check.indicador_serv_filtros_aire">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Revisar separador de agua/sistema de combustible</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'sep_agua_sistema_combustible')" 
+                 name="sep_agua_sistema_combustible" [value]="check.sep_agua_sistema_combustible">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Verificar indicadores de tablero de instrumentos</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'tablero_instrumentos')" 
+                 name="tablero_instrumentos" [value]="check.tablero_instrumentos">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Revisar y engrasar de ser necesarias las crucetas</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'revisar_engrasar_crucetas')" 
+                 name="revisar_engrasar_crucetas" [value]="check.revisar_engrasar_crucetas">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Verificar presencia de fugas de aceite</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'fugas_aceite')" 
+                 name="fugas_aceite" [value]="check.fugas_aceite">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Verificar estado (juego) en las terminales de dirección</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'terminales_direccion')" 
+                 name="terminales_direccion" [value]="check.terminales_direccion">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Verificar estado de presión de llantas</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'presion_llantas')" 
+                 name="presion_llantas" [value]="check.presion_llantas">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Verificar limpieza del equipo</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'limpieza_equipo')" 
+                 name="limpieza_equipo" [value]="check.limpieza_equipo">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">CHECK LIST CANASTILLA</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Cuenta con bisagra (cierre de acceso)</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'bisagra_cierre_acceso')" 
+                 name="bisagra_cierre_acceso" [value]="check.bisagra_cierre_acceso">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Asegurarse que se tenga seguro (tope de bisagra)</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'seguro_tope_bisagra')" 
+                 name="seguro_tope_bisagra" [value]="check.seguro_tope_bisagra">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Verificar condiciones de rejilla de piso</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'regilla_piso')" 
+                 name="regilla_piso" [value]="check.regilla_piso">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Verificar que no tenga fisuras en estructura/soldadura</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'fisuras_estructuras_soldadura')" 
+                 name="fisuras_estructuras_soldadura" [value]="check.fisuras_estructuras_soldadura">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Verificar tuercas y abrazaderas de montaje</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'tuercas_abrazaderas')" 
+                 name="tuercas_abrazaderas" [value]="check.tuercas_abrazaderas">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Verificar tuercas y abrazaderas de montaje</ion-label>
+                <ion-select interface="popover" 
+                (ionChange)="optionsFn($event, 'tuercas_abrazaderas')" 
+                 name="tuercas_abrazaderas" [value]="check.tuercas_abrazaderas">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-label>Observaciones</ion-label>
+              <ion-input type="text" name="observaciones" 
+              [(ngModel)]="check.observaciones"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-label><b>* </b>Nombre del Operador</ion-label>
+              <ion-input type="text" name="check.nombre_operador"
+                        disabled [ngModel]="check.nombre_operador"></ion-input>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label><b>* </b>Nombre del Supervisor</ion-label>
+              <ion-input type="text" name="nombre_supervisor" 
+              [value]="check.nombre_supervisor" (ionChange)="optionsFn($event, 'nombre_supervisor')"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-button type="submit" 
+                    expand="block" 
+                    fill="solid" 
+                    shape="round"
+                    color="primary"
+                    >
+              Guardar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+
+
+
+        </ion-grid>
+    </form>
+</ion-content>

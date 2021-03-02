@@ -1,0 +1,13 @@
+<app-header titulo="Empleados"></app-header>
+
+<ion-content>
+<ion-list>
+  <ion-item  *ngFor="let item of array | async">
+    <ion-label>
+      <h2>Nombre: {{item.nombre}}</h2>
+      <h2>Puesto: {{item.puesto}}</h2>
+      <h2>Estatus: {{item.estatus}}</h2>
+    </ion-label>
+  </ion-item>
+</ion-list>
+</ion-content>

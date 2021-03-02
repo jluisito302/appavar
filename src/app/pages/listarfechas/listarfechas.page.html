@@ -1,0 +1,37 @@
+<app-header titulo="Lista de Raya"></app-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-label  color="danger">
+        *Sumatoria de montos en listas de raya (ineterior mina y superficie) de una rango de fecha determinado.
+      </ion-label>
+    </ion-card-content>
+    <form  (submit)="consultar()">
+    <ion-item class="top">
+      <ion-label>Fecha inicial</ion-label>
+      <ion-datetime display-format="DD-MM-YYYY" placeholder="dia-mes-año"
+      name="fecha" [(ngModel)]="model.fechainicial"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Fecha final</ion-label>
+      <ion-datetime display-format="DD:MM:YYYY" placeholder="dia-mes-año"
+      name="fecha" [(ngModel)]="model.fechafinal"></ion-datetime>
+    </ion-item>
+      <ion-button type="submit" 
+                fill="solid" 
+                shape="round"
+                color="primary"
+                >
+          Aceptar
+      </ion-button>
+    </form>
+  </ion-card>
+  <br>
+  <ion-card *ngIf="valor != null">
+    <ion-card-content>
+      <h1>Monto total</h1>
+      <h1 class="padding">{{valor | currency: 'USD'}}</h1>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

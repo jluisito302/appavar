@@ -1,0 +1,598 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Menú</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+    <!--RUTAS PARA CHOFER-->
+    
+    <ion-grid fixed *ngIf="usuario['tuserint'] == 11">
+        <ion-item>
+            <ion-text color="tertiary"><h4>Check-List</h4></ion-text>
+        </ion-item>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/rcheckv']">
+                    <div class="center">
+                        <ion-icon name="brush" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Registrar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/allcheckv']">
+                    <div class="center">
+                        <ion-icon name="file-tray-full" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Visualizar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-item>
+            <ion-text color="tertiary"><h4>Actividades</h4></ion-text>
+        </ion-item>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/rordenesv']">
+                    <div class="center">
+                        <ion-icon name="receipt" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Registrar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/allordenesv']">
+                    <div class="center">
+                        <ion-icon name="file-tray-full" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Visualizar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <!--FINAL RUTAS PARA CHOFER-->
+    <!-- RUTAS PARA RETROEXCAVADORA-->
+    <ion-grid fixed *ngIf="usuario['tuserint'] == 10">
+        <ion-item>
+            <ion-text color="tertiary"><h4>Check-List</h4></ion-text>
+        </ion-item>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/rcheckretro']">
+                    <div class="center">
+                        <ion-icon name="brush" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Registrar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/allcheckr']">
+                    <div class="center">
+                        <ion-icon name="file-tray-full" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Visualizar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-item>
+            <ion-text color="tertiary"><h4>Actividades</h4></ion-text>
+        </ion-item>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/rordretro']">
+                    <div class="center">
+                        <ion-icon name="receipt" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Registrar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/allotretro']">
+                    <div class="center">
+                        <ion-icon name="file-tray-full" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Visualizar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <!--FINAL RUTAS PARA RETRO-->
+    <!--RUTAS PARA MANIPULADOR-->
+    <ion-grid fixed *ngIf="usuario['tuserint'] == 13">
+        <ion-item>
+            <ion-text color="tertiary"><h4>Check-List</h4></ion-text>
+        </ion-item>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/rchecktele']">
+                    <div class="center">
+                        <ion-icon name="brush" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Registrar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/allchecktele']">
+                    <div class="center">
+                        <ion-icon name="file-tray-full" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Visualizar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-item>
+            <ion-text color="tertiary"><h4>Actividades</h4></ion-text>
+        </ion-item>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/rottele']">
+                    <div class="center">
+                        <ion-icon name="receipt" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Registrar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/allottele']">
+                    <div class="center">
+                        <ion-icon name="file-tray-full" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Visualizar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    
+    <!--FINAL RUTAS PARA MANIPULADOR-->
+    <!--RUTAS PARA PLANTA-->
+    
+    <ion-grid fixed *ngIf="usuario['tuserint'] == 15">
+        <ion-item>
+            <ion-text color="tertiary"><h4>Check-List</h4></ion-text>
+        </ion-item>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/rcheckplanta']">
+                    <div class="center">
+                        <ion-icon name="brush" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Registrar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/allcheckplanta']">
+                    <div class="center">
+                        <ion-icon name="file-tray-full" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Visualizar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-item>
+            <ion-text color="tertiary"><h4>Actividades</h4></ion-text>
+        </ion-item>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/rotplanta']">
+                    <div class="center">
+                        <ion-icon name="receipt" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Registrar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/allotplanta']">
+                    <div class="center">
+                        <ion-icon name="file-tray-full" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Visualizar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!--FINAL RUTAS PARA PLANTA-->
+
+    <!--RUTAS PARA ACTIVIADES ALBAÑIL-->
+    <ion-grid fixed *ngIf="usuario['tuserint'] == 21 || usuario['tuserint'] == 22">
+        
+        <ion-item>
+            <ion-text color="tertiary"><h4>Actividades Obras</h4></ion-text>
+        </ion-item>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/rotobra']">
+                    <div class="center">
+                        <ion-icon name="receipt" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Registrar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/allotobra']">
+                    <div class="center">
+                        <ion-icon name="file-tray-full" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Visualizar</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!--FINAL RUTAS PARA ACTIVIDADES ALBAÑIL-->
+
+    <!-- RUTAS PARA EL ADMINISTRADOR-->
+    <ion-grid fixed *ngIf="usuario['tuserint'] == 1">
+        <ion-row>
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label>Usuarios</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/adduser']">
+                    <div class="center">
+                        <ion-icon name="person-add-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Agregar Usuarios</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/users']">
+                    <div class="center">
+                        <ion-icon name="people-outline"  class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Todos los usuarios</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-item>
+            <ion-label>Reportes</ion-label>
+        </ion-item>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/repadministracion']">
+                    <div class="center">
+                        <ion-icon name="bar-chart-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Reportes de Administración</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/repmantenimiento']">
+                    <div class="center">
+                        <ion-icon name="bar-chart-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Reportes de Mantenimiento</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/repalmacen']">
+                    <div class="center">
+                        <ion-icon name="bar-chart-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Reportes de Obras & Almacén</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/reprh']">
+                    <div class="center">
+                        <ion-icon name="bar-chart-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Reportes de RH</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid fixed *ngIf="usuario['tuserint'] == 16 || usuario['tuserint'] == 24 || usuario['tuserint'] == 4">
+        <ion-item *ngIf="usuario['tuserint'] == 16 || usuario['tuserint'] == 24">
+            <ion-label class="titulo" color="tertiary">Check-List</ion-label>
+        </ion-item>
+        <ion-row *ngIf="usuario['tuserint'] == 16 || usuario['tuserint'] == 24">
+            <ion-col size="6">
+                <ion-card [routerLink]="['/checkvinformacion']">
+                    <div class="center">
+                        <ion-icon name="checkbox-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Vehiculos</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/checkretroinfo']">
+                     <div class="center">
+                        <ion-icon name="checkbox-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Retroexcavadora</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="usuario['tuserint'] == 16 || usuario['tuserint'] == 24">
+            <ion-col size="6">
+                <ion-card [routerLink]="['/checkplantainfo']">
+                     <div class="center">
+                        <ion-icon name="checkbox-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Planta de Concreto</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/checkteleinfo']">
+                     <div class="center">
+                        <ion-icon name="checkbox-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Telehandler</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        
+        <ion-item>
+            <ion-label class="titulo" color="tertiary">Actividades</ion-label>
+        </ion-item>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/activvehiinfo']">
+                     <div class="center">
+                        <ion-icon name="clipboard-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Vehiculos</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/activretroinfo']">
+                     <div class="center">
+                        <ion-icon name="clipboard-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Retroexcavadora</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/activteleinfo']">
+                     <div class="center">
+                        <ion-icon name="clipboard-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Telehandler</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/activplantainfo']">
+                     <div class="center">
+                        <ion-icon name="clipboard-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Planta de Concreto</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/activobrainfo']">
+                     <div class="center">
+                        <ion-icon name="clipboard-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Obras</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <!-- RUTAS PARA EL JEFE DE MTTO-->
+    <ion-grid fixed *ngIf="usuario['tuserint'] == 5">
+        <ion-item>
+            <ion-label>Matenimientos</ion-label>
+        </ion-item>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/rmantto']">
+                    <div class="center">
+                        <ion-icon name="brush" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h3>Registrar Mantenimiento</h3>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/vermtto']">
+                    <div class="center">
+                        <ion-icon name="build" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Todos los Mantenimientos</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+     <!-- RUTAS PARA EL GERENTE-->
+     <ion-grid fixed *ngIf="usuario['tuserint'] == 2">
+        <ion-item>
+            <ion-label>Departamentos</ion-label>
+        </ion-item>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/administracion']">
+                    <div class="center">
+                        <ion-icon name="cash-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Administración</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/recursoshumanos']">
+                    <div class="center">
+                        <ion-icon name="people-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Recursos Humanos</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/mantenimiento']">
+                    <div class="center">
+                        <ion-icon name="build-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Mantenimiento</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/almacen']">
+                    <div class="center">
+                        <ion-icon name="layers-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Almacén</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/verificacion']">
+                    <div class="center">
+                        <ion-icon name="checkbox-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Verificación</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-item>
+            <ion-label>Reportes</ion-label>
+        </ion-item>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/repadministracion']">
+                    <div class="center">
+                        <ion-icon name="bar-chart-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Reportes de Administración</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/repmantenimiento']">
+                    <div class="center">
+                        <ion-icon name="bar-chart-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Reportes de Mantenimiento</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/repalmacen']">
+                    <div class="center">
+                        <ion-icon name="bar-chart-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Reportes de Obras & Almacén</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card [routerLink]="['/reprh']">
+                    <div class="center">
+                        <ion-icon name="bar-chart-outline" class="iconos"></ion-icon>
+                    </div>
+                    <ion-card-content>
+                        <h2>Reportes de RH</h2>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    
+  
+</ion-content>

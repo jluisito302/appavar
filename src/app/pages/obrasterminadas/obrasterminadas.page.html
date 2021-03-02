@@ -1,0 +1,40 @@
+<app-header titulo="Obras Terminadas"></app-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of array | async">
+      <ion-item>
+        <ion-label>
+          <h2>
+           <ion-icon name="checkmark-outline" color="primary" *ngIf="item.bien != null"></ion-icon>
+            Obra: <b>{{item.nombre_obra}}</b>
+          </h2>
+          <h2>Cliente: <b>{{item.cliente}}</b></h2>
+          <h2>Fecha inicio: <b>{{item.fecha_inicio | date: 'dd/MM/yyyy'}}</b></h2>
+          <h2>Estatus: <b>{{item.estatus}}</b></h2>
+          <h2>Monto cotizado: <b>{{item.monto | currency: 'USD'}}</b></h2>
+          <h2>Porcentaje de avance: <b>{{item.porcentaje_avance}}</b></h2>
+          <p *ngIf="item.factura_archivo != null">
+            <ion-icon name="document-outline" color="primary"></ion-icon>
+            Desliza a la izquierda para ver el archivo (Factura, HES)
+          </p>
+        </ion-label>
+      </ion-item>
+ 
+      <ion-item-options side="start" *ngIf="item.factura_archivo != null">
+       <ion-item-option color="light" (click)="factura(item.id)">
+         <ion-icon slot="icon-only" name="document-outline" color="tertiary"></ion-icon>
+         Factura
+       </ion-item-option>
+       <ion-item-option color="light" (click)="hes(item.id)">
+        <ion-icon slot="icon-only" name="document-outline" color="tertiary"></ion-icon>
+        HES
+      </ion-item-option>
+      </ion-item-options>
+  
+      <ion-item-options side="end">
+        <ion-item-option (click)="bien(item.id)">Aprobar</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

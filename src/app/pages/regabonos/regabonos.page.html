@@ -1,0 +1,47 @@
+<app-header titulo="Registrar Abonos"></app-header>
+
+<ion-content>
+  <form  (ngSubmit)="save()">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="12">
+          <ion-label>Folio o comprobante (No obligatorio)</ion-label>
+          <ion-input placeholder="Anotar el folio" name="nota_factura" [(ngModel)]="model.nremision_factura"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-label><b class="red">*</b> Proveedor</ion-label>
+          <ion-select interface="action-sheet" name="id_proveedor" 
+          placeholder="Selecciona un proveedor" [(ngModel)]="model.id_proveedor">
+            <ion-select-option value="{{item.id}}" *ngFor="let item of array|async">{{item.nombre}}</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-label><b class="red">*</b> Importe Abonado</ion-label>
+          <ion-input type="text" placeholder="Ej. 1500" name="importe" [(ngModel)]="model.importe"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-label>Observaciones</ion-label>
+          <ion-input type="text" placeholder="Observaciones del monto abonado" name="observaciones" 
+          [(ngModel)]="model.observaciones"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row class="center">
+        <ion-col size="12">
+          <ion-button type="submit" 
+                fill="solid" 
+                shape="round"
+                color="primary"
+                >
+          Guardar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

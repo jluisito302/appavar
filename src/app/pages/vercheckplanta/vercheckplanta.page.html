@@ -1,0 +1,583 @@
+
+    <app-header titulo="Check-List"></app-header>
+
+    <ion-content>
+       <!-- fab placed to the top end -->
+  <ion-fab horizontal="end" vertical="top" slot="fixed" edge 
+  *ngIf="usuario['tuserint'] == 16 || usuario['tuserint'] == 24">
+    <ion-fab-button color="tertiary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list>
+      <ion-fab-button color="light" (click)="valido()">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="light" routerLink="/editcheckplanta/{{ check.id }}">
+        <ion-icon name="create-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+     
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <ion-label><b>* </b>Folio</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.folio }}</ion-label>
+                </ion-chip>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label><b>* </b>Fecha (Años-mes-día)</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.fecha }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-label><b>* </b>Planta de concreto</ion-label>
+                
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.planta_concreto }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">Registro de Paradas</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-label>Codigo de Parada</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.codigo_parada }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-label>Hora de Inicio</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.hora_inicio }}</ion-label>
+                </ion-chip>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Hora de Término</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.hora_termino }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="12">
+                  <ion-label>Observaciones</ion-label>
+                  <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.observaciones_p }}</ion-label>
+                </ion-chip>
+              </ion-col>
+          </ion-row>
+          <ion-row *ngIf="check.codigo_parada2 != null">
+            <ion-col size="12">
+              <ion-label>Codigo de Parada</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="check.codigo_parada2 != null">
+            <ion-col size="12">
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.codigo_parada2 }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="check.codigo_parada2 != null">
+            <ion-col size="6">
+              <ion-label>Hora de Inicio</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.hora_inicio2 }}</ion-label>
+                </ion-chip>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Hora de Término</ion-label>
+              
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.hora_termino2 }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="check.codigo_parada2 != null">
+            <ion-col size="12">
+                <ion-label>Observaciones</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.observaciones_p2 }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">REVISIÓN DE CAMION CHASIS</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Nivel aceite hidraulico</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.nivel_aceite_hidraulico }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Nivel aceite de motor</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.nivel_aceite_motor }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Nivel aceite de transmisión</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.nivel_aceite_transmision }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Nivel de Anticogelante</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.nivel_anticongelante }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Freno de pedal</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.freno_pedal }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Freno de motor</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.freno_motor }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Freno estacionario</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.freno_estacionario }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Presión y estado de los neumaticos</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.presion_estado_neumaticos }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Parabrisas y limpia parabrisas</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.parabrisas }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Estado de la Bateria y conexiones </ion-label>
+                
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.e_bateria_conexiones }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Tablero eléctrico</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.tablero_electrico }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Luces delanteras, intermitentes y stop</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.luces_delanteras_etc }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Luces reverseras</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.luces_reversa }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Alarma reversera</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.alarma_reversera }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Torreta</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.torreta }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Funcionamiento del claxón</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.f_claxon }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Estado de los asientos</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.estado_asientos }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Cinturón de seguridad</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.cinturon_seguridad }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Extintor portátil</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.extintor }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Botiquin de primeros auxilios básico</ion-label>
+                
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.botiquin }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Calzas de seguridad</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.calzas_seguridad }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Herramientas basica</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.herramientas_basica }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Revisión de muelles,bujes y perchas</ion-label>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.revision_muelles_bujes_perchas }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Engrasar equipo en general</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.engrasar_equipo }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Limpieza general del equipo</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.limpieza_general }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="header">
+            <ion-col size="12">
+              <ion-label color="primary">REVISIÓN DE PLANTA DE CONCRETO MÓVIL</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Tanque para aceite Hidraulico</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.tanque_aceite_hidraulico }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Aceite hidraulico</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.aceite_hidraulico }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Enfriador de aceite Hidraulico</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.enfriador_aceite_hidraulico }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Tolva de agregado fino</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.tolva_agregado_fino }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Tolva de agregado grueso</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.tolva_agregado_grueso }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Tolva hermética para cemento</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.tolva_hermetica_cemento }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Bomba de agua</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.bomba_agua }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Deposito de agua</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.deposito_agua }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Flujometro para control de agua</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.flujometro_control_agua }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Compuertas para dosificación</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.compuertas_dosificacion }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Banda transportadora de agregados</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.banda_transp_agregado }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Mezclador continuo</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.mezclador_continuo }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Seguros del mezclador</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.seguros_mezclador }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Guardas del mezclador</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.guardas_mezclador }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Luces de trabajo</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.luces_trabajo }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>Limpieza del equipo</ion-label>
+                <ion-chip color="tertiary">
+                  <ion-label>{{ check.limpieza_equipo }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="12">
+              <ion-label>Observaciones</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.revision_muelles_bujes_perchas }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-label>Nombre del Operador</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.nombre_operador }}</ion-label>
+                </ion-chip>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Nombre del Supervisor</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ check.nombre_supervisor }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          
+          
+        </ion-grid>
+    
+    </ion-content>

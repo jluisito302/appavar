@@ -1,0 +1,42 @@
+<app-header titulo="Asistencias"></app-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+        <ion-col size="6">
+            <ion-card [routerLink]="['/rasistencia']">
+                <div class="center">
+                    <ion-icon name="alarm-outline" class="iconos"></ion-icon>
+                </div>
+                <ion-card-content>
+                    <h2>Registrar</h2>
+                </ion-card-content>
+            </ion-card>
+        </ion-col>
+        <ion-col size="6">
+            <ion-card [routerLink]="['/']">
+                <div class="center">
+                    <ion-icon name="list" class="iconos"></ion-icon>
+                </div>
+                <ion-card-content>
+                    <h2>Mis asistencias</h2>
+                </ion-card-content>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="6">
+            <ion-button (click)="camara()" shape="round">
+                Camara
+            </ion-button>
+            <ion-button (click)="galeria()" shape="round">
+                Galeria
+            </ion-button>
+            <ion-button (click)="upserver()" shape="round">
+                Upload Image
+            </ion-button>
+        </ion-col>
+    </ion-row>
+    <ion-img src="{{imagen}}" style="height: 80px; width: 80px;"></ion-img>
+  </ion-grid>
+</ion-content>

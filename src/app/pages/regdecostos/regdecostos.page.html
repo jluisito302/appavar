@@ -1,0 +1,23 @@
+<app-header titulo="Registro de costos & consumos"></app-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of array | async">
+      <ion-item >
+        <ion-label>
+          <h2>
+            <ion-icon name="checkmark-outline" color="primary" *ngIf="item.bien != null"></ion-icon>
+            Articulo: <b>{{item.articulo}}</b>
+          </h2>
+          <h2>Equipo: <b>{{item.equipo_destino}}</b></h2>
+          <h2>Cantidad: <b>{{item.cantidad}}</b></h2>
+          <h2>Monto: <b>{{item.monto | currency: 'USD'}}</b></h2>
+          <h2>Fecha: <b>{{item.fecha | date: 'dd/MM/yyyy'}}</b></h2>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end" *ngIf="item.bien == null">
+        <ion-item-option (click)="bien(item.id)">Bien</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

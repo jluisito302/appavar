@@ -1,0 +1,39 @@
+<app-header titulo="Sumatoria de Nóminas"></app-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-label  color="danger">
+        *Sumatoria de montos en nominas, de un rango de semanas.
+      </ion-label>
+    </ion-card-content>
+    <form  (submit)="consultar()">
+    <ion-item class="top">
+      <ion-label>Fecha inicial</ion-label>
+        <ion-select name="semanainicial" [(ngModel)]="model.semanainicial">
+          <ion-select-option *ngFor="let item of semanas1 | async" value="{{item[0]}}">{{item[1]}} - {{item[2]}}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Semana final</ion-label>
+      <ion-select name="semanafinal" [(ngModel)]="model.semanafinal">
+        <ion-select-option *ngFor="let item of semanas2 | async" value="{{item[0]}}">{{item[1]}} - {{item[2]}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+      <ion-button type="submit" 
+                fill="solid" 
+                shape="round"
+                color="primary"
+                >
+          Aceptar
+      </ion-button>
+    </form>
+  </ion-card>
+  <br>
+  <ion-card *ngIf="valor != null">
+    <ion-card-content>
+      <h1>Monto total</h1>
+      <h1 class="padding">{{valor | currency: 'USD'}}</h1>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

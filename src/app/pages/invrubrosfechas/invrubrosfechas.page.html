@@ -1,0 +1,39 @@
+<app-header titulo="Inversión"></app-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-label  color="danger">
+        *Costos de salidas de articulos en almacén por Linea de artículos (Rubros) de una rango de fecha determinado.
+      </ion-label>
+    </ion-card-content>
+    <form  (submit)="consultar()">
+    <ion-item class="top">
+      <ion-label>Fecha inicial</ion-label>
+      <ion-datetime display-format="DD-MM-YYYY" placeholder="dia-mes-año"
+      name="fecha" [(ngModel)]="model.fechainicial"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Fecha final</ion-label>
+      <ion-datetime display-format="DD:MM:YYYY" placeholder="dia-mes-año"
+      name="fecha" [(ngModel)]="model.fechafinal"></ion-datetime>
+    </ion-item>
+      <ion-button type="submit" 
+                fill="solid" 
+                shape="round"
+                color="primary"
+                >
+          Aceptar
+      </ion-button>
+    </form>
+  </ion-card>
+  <ion-list *ngFor="let item of array">
+    <ion-item>
+      <ion-label>
+        <h2>{{item[0]}}</h2>
+        <h3>Monto de salida: <b class="blue">{{item[1] | currency: 'USD' }}</b></h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

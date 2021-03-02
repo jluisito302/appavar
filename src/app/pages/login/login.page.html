@@ -1,0 +1,49 @@
+<ion-content class="login">
+  
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+              <ion-img src="/assets/avarlogo.png" height="40px" with="60px"></ion-img>
+        </ion-col>
+      </ion-row>
+      <!--AQUITERMINA EL LOGO-->
+      <ion-row class="header">
+        <ion-col size="12">
+          <ion-label><h2 color="tertiary">ACCESO</h2> </ion-label>
+        </ion-col>
+      </ion-row>
+      <form #form="ngForm" (ngSubmit)="login(form)" method="post">
+        <ion-row class="top">
+          <ion-col size="12">
+            <ion-item>
+              <ion-label position="floating">Usuario</ion-label>
+              <ion-input [(ngModel)]="user.username" type="text" name="username"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="padding">
+          <ion-col size="12">
+            <ion-item>
+              <ion-label position="floating">Contraseña</ion-label>
+              <ion-input #input [(ngModel)]="user.password" type="password" name="password"></ion-input>
+              <ion-icon name="eye-outline" slot="end" (click)="showPassword(input)">
+
+              </ion-icon>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        
+        
+        <ion-row class="top">
+          <ion-col size="12">
+            <ion-button 
+            type="submit" 
+            color="primary"
+            shape="round"
+            >Aceptar
+          </ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid>
+</ion-content>

@@ -1,0 +1,767 @@
+<app-header titulo="Editar Check List"></app-header>
+
+<ion-content>
+  <form  (ngSubmit)="updateCheck()">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-label><b>* </b>Folio</ion-label>
+          <ion-input autofocus required name="folio" type="text"
+          [(ngModel)]="check.folio"></ion-input>
+        </ion-col>
+        <ion-col>
+            <ion-label><b>* </b>Fecha (Años-mes-día)</ion-label>
+            <ion-datetime displayFormat="YYYY MM DD"
+            placeholder="" 
+            doneText="Aceptar"
+            cancelText="Cancelar"
+            required
+            name="fecha" [(ngModel)]="check.fecha">
+            </ion-datetime>
+        </ion-col>
+      </ion-row>
+      <ion-row class="header">
+        <ion-col>
+          <ion-label color="tertiary">Datos del Vehiculo</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+            <ion-label><b>* </b>Vehiculo</ion-label>
+            <ion-select interface="popover" name="vehiculo" [(ngModel)]="check.vehiculo">
+              <ion-select-option *ngFor="let vehi of all | async" value="{{ vehi.num_economico }}">{{ vehi.num_economico }}</ion-select-option>
+            </ion-select>
+        </ion-col>
+        <ion-col>
+          <ion-label position="floating"><b>* </b>Placas</ion-label>
+          <ion-input name="placas" [(ngModel)]="check.placas"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label position="floating">Kilometraje</ion-label>
+          <ion-input name="kilometraje" [(ngModel)]="check.kilometraje"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label position="floating">No de Póliza</ion-label>
+          <ion-input name="no_poliza" [(ngModel)]="check.no_poliza"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label position="floating">Folio Tarjeta Circulación</ion-label>
+          <ion-input name="folio_t_circul" [(ngModel)]="check.folio_t_circul"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label position="floating">Vigencia de Seguro</ion-label>
+          <ion-datetime displayFormat="YYYY MM DD"
+            placeholder="" 
+            doneText="Aceptar"
+            cancelText="Cancelar"
+            required
+            max="2030" name="vigencia_seguro" [(ngModel)]="check.vigencia_seguro">
+          </ion-datetime>
+        </ion-col>
+      </ion-row>
+      <ion-row class="header">
+        <ion-col>
+          <ion-label color="tertiary">Exteriores</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Luces</ion-label>
+            <ion-select interface="popover" (ionChange)="optionsFn($event, 'luces')" 
+             name="luces" [value]="check.luces">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Espejos Laterales</ion-label>
+            <ion-select interface="popover" name="espejo_laterales" 
+            (ionChange)="optionsFn($event, 'espejo_laterales')" [value]="check.espejo_laterales">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Cristales</ion-label>
+            <ion-select interface="popover" name="cristales" [value]="check.cristales"
+            (ionChange)="optionsFn($event, 'cristales')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Parabrisas</ion-label>
+            <ion-select interface="popover" name="parabrisas" [value]="check.parabrisas"
+            (ionChange)="optionsFn($event, 'parabrisas')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Llantas</ion-label>
+            <ion-select interface="popover" name="llantas" [value]="check.llantas"
+            (ionChange)="optionsFn($event, 'llantas')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Tapon de Ruedas</ion-label>
+            <ion-select interface="popover" name="tapon_ruedas" 
+            [value]="check.tapon_ruedas" (ionChange)="optionsFn($event, 'tapon_ruedas')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Molduras Completas</ion-label>
+            <ion-select interface="popover" name="molduras_complet" 
+            [value]="check.molduras_complet" 
+            (ionChange)="optionsFn($event, 'molduras_complet')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Tapon de combustible</ion-label>
+            <ion-select interface="popover" name="tapon_combustible" 
+            [value]="check.tapon_combustible" 
+            (ionChange)="optionsFn($event, 'tapon_combustible')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Carroceria sin golpes</ion-label>
+            <ion-select interface="popover" name="carroceria_s_golpes" 
+            [value]="check.carroceria_s_golpes"
+            (ionChange)="optionsFn($event, 'carroceria_s_golpes')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Cable pasa corriente</ion-label>
+            <ion-select interface="popover" name="cable_pasa_corri" 
+            [value]="check.cable_pasa_corri"
+            (ionChange)="optionsFn($event, 'cable_pasa_corri')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Calzas</ion-label>
+            <ion-select interface="popover" name="calzas" 
+            [value]="check.calzas"
+            (ionChange)="optionsFn($event, 'calzas')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Faros Reverseros</ion-label>
+            <ion-select interface="popover" name="faros_reverseros" 
+            [value]="check.faros_reverseros"
+            (ionChange)="optionsFn($event, 'faros_reverseros')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Estado de Neumáticos</ion-label>
+            <ion-select interface="popover" name="estado_neumaticos" 
+            [value]="check.estado_neumaticos"
+            (ionChange)="optionsFn($event, 'estado_neumaticos')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Alarma Reversera</ion-label>
+            <ion-select interface="popover" name="alarma_reversa" 
+            [value]="check.alarma_reversa"
+            (ionChange)="optionsFn($event, 'alarma_reversa')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Claxón</ion-label>
+            <ion-select interface="popover" name="claxon" 
+            [value]="check.claxon" 
+            (ionChange)="optionsFn($event, 'claxon')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="header">
+        <ion-col>
+          <ion-label color="tertiary">Interiores</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Instrumentos de tablero</ion-label>
+            <ion-select interface="popover" name="instrum_tablero" 
+            [value]="check.instrum_tablero"
+            (ionChange)="optionsFn($event, 'instrum_tablero')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Calefacción</ion-label>
+            <ion-select interface="popover" name="calefaccion" 
+            [value]="check.calefaccion"
+            (ionChange)="optionsFn($event, 'calefaccion')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Limpia Parabrisas</ion-label>
+            <ion-select interface="popover" name="limpia_parabrisas" 
+            [value]="check.limpia_parabrisas"
+            (ionChange)="optionsFn($event, 'limpia_parabrisas')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Torreta</ion-label>
+            <ion-select interface="popover" name="torreta" 
+            [value]="check.torreta"
+            (ionChange)="optionsFn($event, 'torreta')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Encendedor</ion-label>
+            <ion-select interface="popover" name="encendedor" 
+            [value]="check.encendedor"
+            (ionChange)="optionsFn($event, 'encendedor')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Espejo Retrovisor</ion-label>
+            <ion-select interface="popover" name="espejo_retrovisor" 
+            [value]="check.espejo_retrovisor"
+            (ionChange)="optionsFn($event, 'espejo_retrovisor')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Cinturones de Seguridad</ion-label>
+            <ion-select interface="popover" name="cinturon_seguridad" 
+            [value]="check.cinturon_seguridad"
+            (ionChange)="optionsFn($event, 'cinturon_seguridad')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Conos o triangulos de seguridad</ion-label>
+            <ion-select interface="popover" name="conos_t_seguridad" 
+            [value]="check.conos_t_seguridad"
+            (ionChange)="optionsFn($event, 'conos_t_seguridad')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Botones de Interiores</ion-label>
+            <ion-select interface="popover" name="botones_interiores" 
+            [value]="check.botones_interiores"
+            (ionChange)="optionsFn($event, 'botones_interiores')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Manijas de Interiores</ion-label>
+            <ion-select interface="popover" name="manijas_interiores" 
+            [value]="check.manijas_interiores"
+            (ionChange)="optionsFn($event, 'manijas_interiores')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Tapetes</ion-label>
+            <ion-select interface="popover" name="tapetes" 
+            [value]="check.tapetes"
+            (ionChange)="optionsFn($event, 'tapetes')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Vestiduras</ion-label>
+            <ion-select interface="popover" name="vestiduras" 
+            [value]="check.vestiduras"
+            (ionChange)="optionsFn($event, 'vestiduras')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Tarjeta de Circulación</ion-label>
+            <ion-select interface="popover" name="tarjeta_circulacion" 
+            [value]="check.tarjeta_circulacion"
+            (ionChange)="optionsFn($event, 'tarjeta_circulacion')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Póliza de Seguro</ion-label>
+            <ion-select interface="popover" name="poliza_seguro" 
+            [value]="check.poliza_seguro" 
+            (ionChange)="optionsFn($event, 'poliza_seguro')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Aire Acondicionado</ion-label>
+            <ion-select interface="popover" name="aire_acondicionado" 
+            [value]="check.aire_acondicionado"
+            (ionChange)="optionsFn($event, 'aire_acondicionado')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="header">
+        <ion-col>
+          <ion-label color="tertiary">Accesorios/Complementos</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Gato Hidraulico</ion-label>
+            <ion-select interface="popover" name="gato_hidraulico" 
+            [value]="check.gato_hidraulico"
+            (ionChange)="optionsFn($event, 'gato_hidraulico')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Maneral de Gato</ion-label>
+            <ion-select interface="popover" name="maneral_gato" 
+            [value]="check.maneral_gato"
+            (ionChange)="optionsFn($event, 'maneral_gato')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Llave de cruz</ion-label>
+            <ion-select interface="popover" name="llave_cruz" 
+            [value]="check.llave_cruz"
+            (ionChange)="optionsFn($event, 'llave_cruz')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Estuche de Herramientas</ion-label>
+            <ion-select interface="popover" name="estuche_herramient" 
+            [value]="check.estuche_herramient"
+            (ionChange)="optionsFn($event, 'estuche_herramient')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Llanta de Refacción</ion-label>
+            <ion-select interface="popover" name="llanta_refaccion" 
+            [value]="check.llanta_refaccion"
+            (ionChange)="optionsFn($event, 'llanta_refaccion')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Extintor >= 4.5kg</ion-label>
+            <ion-select interface="popover" name="extintor" 
+            [value]="check.extintor"
+            (ionChange)="optionsFn($event, 'extintor')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Tapón de aceite</ion-label>
+            <ion-select interface="popover" name="tapon_aceite" 
+            [value]="check.tapon_aceite"
+            (ionChange)="optionsFn($event, 'tapon_aceite')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Antenas de radio comunicación</ion-label>
+            <ion-select interface="popover" name="antenas_radio" 
+            [value]="check.antenas_radio"
+            (ionChange)="optionsFn($event, 'antenas_radio')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Tapon de radiador</ion-label>
+            <ion-select interface="popover" name="tapon_radiador" 
+            [value]="check.tapon_radiador"
+            (ionChange)="optionsFn($event, 'tapon_radiador')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Bayoneta</ion-label>
+            <ion-select interface="popover" name="bayoneta" 
+            [value]="check.bayoneta"
+            (ionChange)="optionsFn($event, 'bayoneta')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Radio de Comunicación</ion-label>
+            <ion-select interface="popover" name="radio" 
+            [value]="check.radio"
+            (ionChange)="optionsFn($event, 'radio')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Batería</ion-label>
+            <ion-select interface="popover" name="bateria" 
+            [value]="check.bateria"
+            (ionChange)="optionsFn($event, 'bateria')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Botiquin de Primeros Auxilios</ion-label>
+            <ion-select interface="popover" name="botiquin" 
+            [value]="check.botiquin"
+            (ionChange)="optionsFn($event, 'botiquin')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Limpieza General</ion-label>
+            <ion-select interface="popover" name="limpieza_general" 
+            [value]="check.limpieza_general"
+            (ionChange)="optionsFn($event, 'limpieza_general')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Bitacora de Mantenimiento</ion-label>
+            <ion-select interface="popover" name="bitacora_mant" 
+            [value]="check.bitacora_mant"
+            (ionChange)="optionsFn($event, 'bitacora_mant')">
+              <ion-select-option value="Si">Si</ion-select-option>
+              <ion-select-option value="No">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label>Vehiculo Presenta</ion-label>
+          <ion-select interface="popover" name="vehiculo_presenta" 
+          [value]="check.vehiculo_presenta"
+          (ionChange)="optionsFn($event, 'vehiculo_presenta')">
+            <ion-select-option value="Rayones">Rayones</ion-select-option>
+            <ion-select-option value="Golpes">Golpes</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col>
+            <ion-label>Especificar Rayones/Golpes</ion-label>
+            <ion-input name="v_pdescripcion" type="text"
+            [(ngModel)]="check.v_pdescripcion"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label><b>* </b>Cantidad de Combustible</ion-label>
+          <ion-select interface="popover" name="cantidad_combusti" 
+          [value]="check.cantidad_combusti"
+          (ionChange)="optionsFn($event, 'cantidad_combusti')">
+            <ion-select-option value="LLENO">LLENO</ion-select-option>
+            <ion-select-option value="3/4">3/4</ion-select-option>
+            <ion-select-option value="1/2">1/2</ion-select-option>
+            <ion-select-option value="1/4">1/4</ion-select-option>
+            <ion-select-option value="VACIO">VACIO</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col>
+            <ion-label><b>* </b>Conductor</ion-label>
+            <ion-input name="nombre_conductor" type="text"
+             [(ngModel)]="check.nombre_conductor" disabled="true"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label><b>* </b>Numero de Licencia</ion-label>
+            <ion-input name="numero_licencia" type="text"
+             [(ngModel)]="check.numero_licencia"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label><b>* </b>Tipo de Licencia</ion-label>
+            <ion-input name="tipo_licencia" type="text"
+             [(ngModel)]="check.tipo_licencia"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label><b>* </b>Vigencia (Licencia)</ion-label>
+             <ion-datetime displayFormat="YYYY MM DD"
+             placeholder="" 
+             doneText="Aceptar"
+             cancelText="Cancelar"
+             required
+             max="2030" name="vigencia_licencia" [(ngModel)]="check.vigencia_licencia">
+           </ion-datetime>
+        </ion-col>
+        <ion-col>
+          <ion-label>Licencia Interna Vigente</ion-label>
+          <ion-select interface="popover" name="licencia_int_vig" 
+          [value]="check.licencia_int_vig"
+          (ionChange)="optionsFn($event, 'licencia_int_vig')">
+            <ion-select-option value="Si">Si</ion-select-option>
+            <ion-select-option value="No">No</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+            <ion-label>Estado de Licencia Interna</ion-label>
+            <ion-input name="estado_lic_inter" type="text"
+             [(ngModel)]="check.estado_lic_inter"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label>Comentarios Adicionales</ion-label>
+          <ion-input name="coment_adicionales" type="text"
+             [(ngModel)]="check.coment_adicionales"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label><b>* </b>Trabajador que realiza el Check List</ion-label>
+          <ion-input name="trab_r_checklist" type="text"
+             [value]="check.trab_r_checklist" disabled="true"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label><b>* </b>Nombre del Supervisor</ion-label>
+          <ion-input name="nombre_supervisor" type="text"
+             [(ngModel)]="check.nombre_supervisor"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-button type="submit" 
+                expand="block" 
+                fill="solid" 
+                shape="round"
+                color="primary"
+                >
+          Guardar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      
+    </ion-grid>
+  </form>
+</ion-content>

@@ -1,0 +1,837 @@
+<app-header titulo="Registrar Actividades"></app-header>
+
+<ion-content>
+    <form (ngSubmit)="saveOt()">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-label><b>* </b>Folio</ion-label>
+              <ion-input  okText="Aceptar" cancelText="Cancelar" autofocus required name="folio" type="text"
+              [(ngModel)]="ot.folio"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-label><b>* </b>Fecha</ion-label>
+                <ion-datetime doneText="Aceptar" cancelText="Cancelar" displayFormat="DD/MM/YYYY"
+                placeholder="(Día/Mes/Año)" 
+                doneText="Aceptar"
+                cancelText="Cancelar"
+                required
+                name="fecha" [(ngModel)]="ot.fecha">
+                </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+                <ion-label><b>* </b>Planta de concreto</ion-label>
+                <ion-select interface="popover"  okText="Aceptar" cancelText="Cancelar" name="camion" [(ngModel)]="ot.camion">
+                  <ion-select-option *ngFor="let planta of allp | async" 
+                  value="{{ planta.num_economico }}">{{ planta.num_economico }}</ion-select-option>
+                </ion-select>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Conductor</ion-label>
+              <ion-input  okText="Aceptar" cancelText="Cancelar" name="nombre_operador" disabled [(ngModel)]="ot.nombre_operador"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="6">
+                  <ion-label><b>* </b>Turno</ion-label>
+                      <ion-select interface="popover"  okText="Aceptar" cancelText="Cancelar" placeholder="Seleccionar"
+                      value="{{ot.turno}}" name="turno">
+                          <ion-select-option value="1">1</ion-select-option>
+                          <ion-select-option value="2">2</ion-select-option>
+                      </ion-select>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-label><b>* </b>Obra</ion-label>
+              <ion-select interface="action-sheet" cancel-text="Cancelar" name="obra" [(ngModel)]="ot.obra">
+                <ion-select-option *ngFor="let obra of obras$ | async" 
+                value="{{ obra.nombre_obra }}">{{ obra.nombre_obra }}</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label><b>* </b>Área</ion-label>
+              <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="area" [(ngModel)]="ot.area"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label position="floating">Hora Inicial</ion-label>
+              <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                    picker-format="H:mm A" 
+                    value="" name="h_horainicial" placeholder="ej: 11:25 AM"
+                    [(ngModel)]="ot.h_horainicial">
+              </ion-datetime>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating">Hora Final</ion-label>
+              <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                    picker-format="H:mm A" 
+                    value="" name="h_horafinal" placeholder="ej: 11:25 AM"
+                    [(ngModel)]="ot.h_horafinal">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label position="floating">Kilometraje Inicial</ion-label>
+              <ion-input  okText="Aceptar" cancelText="Cancelar" name="kilometraje_ini" [(ngModel)]="ot.kilometraje_i"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating">Kilometraje Final</ion-label>
+              <ion-input  okText="Aceptar" cancelText="Cancelar" name="kilometraje_final" [(ngModel)]="ot.kilometraje_f"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Ubicación Inicial</ion-label>
+              <ion-input  okText="Aceptar" cancelText="Cancelar" name="d_ubicacion_ini" [(ngModel)]="ot.ubicacion_inicial"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Ubicación Final</ion-label>
+              <ion-input  okText="Aceptar" cancelText="Cancelar" name="ubicacion_final" [(ngModel)]="ot.ubicacion_final"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">Reporte de Consumo en Litros</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label position="floating">Diesel</ion-label>
+              <ion-input  okText="Aceptar" cancelText="Cancelar" name="combustible" [(ngModel)]="ot.consumo_diesel"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating">Aceite de motor</ion-label>
+              <ion-input  okText="Aceptar" cancelText="Cancelar" name="aceite_hidraulico" [(ngModel)]="ot.consumo_aceite_motor"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label position="floating">Aceite de trasmisión</ion-label>
+              <ion-input  okText="Aceptar" cancelText="Cancelar" name="aceite_transmision" [(ngModel)]="ot.consumo_aceite_transmision"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating">Aceite Hidrahulico</ion-label>
+              <ion-input  okText="Aceptar" cancelText="Cancelar" name="aceite_motor" [(ngModel)]="ot.consumo_aceite_hidraulico"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">Trabajo Realizado</ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-card color="secondary">
+            <ion-item color="secondary">
+                <ion-label>Códigos de Operaciones</ion-label>
+            </ion-item>
+            <ion-card-content>
+              <ion-label>R101 R101 Abastecimiento de planta movil</ion-label>
+              <br>
+              <ion-label>R102 R102 Producción de concreto</ion-label>
+              <br>
+              <ion-label>R103 R103 Producción de fraguamax</ion-label>
+              <br>
+              <ion-label>R104 Producción de concreto (Zarpeo)</ion-label>
+              <br>
+              <ion-label>R105 Otros</ion-label>
+            </ion-card-content>
+          </ion-card>
+                <ion-row>
+                    <ion-col size="6">
+                      <ion-label> Codigo Operación</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-select 
+                        [value]="ot.codigo_operacion" interface="popover"  okText="Aceptar" cancelText="Cancelar"
+                        (ionChange)="optionsFn($event, 'codigo_operacion')">
+                          <ion-select-option value="R101">R101 Abastecimiento de planta movil</ion-select-option>
+                          <ion-select-option value="R102">R102 Producción de concreto</ion-select-option>
+                          <ion-select-option value="R103">R103 Producción de fraguamax</ion-select-option>
+                          <ion-select-option value="R104">R104 Producción de concreto (Zarpeo)</ion-select-option><ion-select-option value="R105">Otros</ion-select-option>
+                        </ion-select>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-label>Nivel</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="nivel" [(ngModel)]="ot.nivel"></ion-input>
+                  </ion-col>
+                  </ion-row>
+                <ion-row>
+                      <ion-col size="6">
+                      <ion-label>Lugar</ion-label>  
+                      </ion-col>
+                      <ion-col size="6">
+                      <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="lugar" [(ngModel)]="ot.lugar"></ion-input>
+                      </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                      <ion-label>Empresa</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-select interface="popover" doneText="Aceptar" cancelText="Cancelar"
+                      name="empresa" [(ngModel)]="ot.empresa">
+                        <ion-select-option value="Cmc">Cmc</ion-select-option>
+                        <ion-select-option value="Gremi">Gremi</ion-select-option>
+                        <ion-select-option value="Mexgeo">Mexgeo</ion-select-option>
+                        <ion-select-option value="Herza">Herza</ion-select-option>
+                        <ion-select-option value="Master drilling">Master drilling</ion-select-option>
+                        <ion-select-option value="Cammsa">Cammsa</ion-select-option>
+                        <ion-select-option value="Avar">Avar</ion-select-option>
+                        <ion-select-option value="Otro">Otro</ion-select-option>
+                      </ion-select>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                  <ion-label>Hora Inicial</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                    picker-format="H:mm A" 
+                    value="" name="horainicial" placeholder="ej: 11:25 AM"
+                    [(ngModel)]="ot.horainicial"></ion-datetime>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                  <ion-label>Hora Final</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                    picker-format="H:mm A" 
+                    value="" name="horafinal" placeholder="ej: 11:25 AM"
+                    [(ngModel)]="ot.horafinal"></ion-datetime>
+                  </ion-col>
+                </ion-row>
+               <ion-row>
+                  <ion-col size="6">
+                      <ion-label>Breve Descripción</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="observaciones" [(ngModel)]="ot.observaciones"></ion-input>
+                  </ion-col>
+               </ion-row>
+               <br>
+                <ion-row *ngIf="(cont >= 2)">
+                    <ion-col size="6">
+                      <ion-label> Codigo Operación</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                      <ion-select interface="popover"  okText="Aceptar" cancelText="Cancelar"
+                        [value]="ot.codigo_operacion2" (ionChange)="optionsFn($event, 'codigo_operacion2')">
+                          <ion-select-option value="R101">R101 Abastecimiento de planta movil</ion-select-option>
+                          <ion-select-option value="R102">R102 Producción de concreto</ion-select-option>
+                          <ion-select-option value="R103">R103 Producción de fraguamax</ion-select-option>
+                          <ion-select-option value="R104">R104 Producción de concreto (Zarpeo)</ion-select-option><ion-select-option value="R105">Otros</ion-select-option>
+                      </ion-select>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 2)">
+                  <ion-col size="6">
+                    <ion-label>Nivel</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="nivel2" [(ngModel)]="ot.nivel2"></ion-input>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 2)">
+                      <ion-col size="6">
+                      <ion-label>Lugar</ion-label>  
+                      </ion-col>
+                      <ion-col size="6">
+                      <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="lugar2" [(ngModel)]="ot.lugar2"></ion-input>
+                      </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 2)">
+                  <ion-col size="6">
+                      <ion-label>Empresa</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-select interface="popover" doneText="Aceptar" cancelText="Cancelar"
+                      name="empresa2" [(ngModel)]="ot.empresa2">
+                        <ion-select-option value="Cmc">Cmc</ion-select-option>
+                        <ion-select-option value="Gremi">Gremi</ion-select-option>
+                        <ion-select-option value="Mexgeo">Mexgeo</ion-select-option>
+                        <ion-select-option value="Herza">Herza</ion-select-option>
+                        <ion-select-option value="Master drilling">Master drilling</ion-select-option>
+                        <ion-select-option value="Cammsa">Cammsa</ion-select-option>
+                        <ion-select-option value="Avar">Avar</ion-select-option>
+                        <ion-select-option value="Otro">Otro</ion-select-option>
+                      </ion-select>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 2)">
+                  <ion-col size="6">
+                  <ion-label>Hora Inicial</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                      picker-format="H:mm A" 
+                      value="" name="horainicial2" placeholder="ej: 11:25 AM"
+                      [(ngModel)]="ot.horainicial2"></ion-datetime>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 2)">
+                  <ion-col size="6">
+                  <ion-label>Hora Final</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                      picker-format="H:mm A" 
+                      value="" name="horafinal2" placeholder="ej: 11:25 AM"
+                      [(ngModel)]="ot.horafinal2">
+                      </ion-datetime>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 2)" class="bottom">
+                    <ion-col size="6">
+                        <ion-label>Breve Descripción</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="observaciones2" [(ngModel)]="ot.observaciones2"></ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 3)">
+                <ion-col size="6">
+                  <ion-label> Codigo Operación</ion-label>  
+                </ion-col>
+                <ion-col size="6">
+                      <ion-select interface="popover"  okText="Aceptar" cancelText="Cancelar"
+                        [value]="ot.codigo_operacion3" (ionChange)="optionsFn($event, 'codigo_operacion3')">
+                          <ion-select-option value="R101">R101 Abastecimiento de planta movil</ion-select-option>
+                          <ion-select-option value="R102">R102 Producción de concreto</ion-select-option>
+                          <ion-select-option value="R103">R103 Producción de fraguamax</ion-select-option>
+                          <ion-select-option value="R104">R104 Producción de concreto (Zarpeo)</ion-select-option><ion-select-option value="R105">Otros</ion-select-option>
+                      </ion-select>
+                </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 3)">
+              <ion-col size="6">
+                <ion-label>Nivel</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="nivel3" [(ngModel)]="ot.nivel3"></ion-input>
+              </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 3)">
+                      <ion-col size="6">
+                      <ion-label>Lugar</ion-label>  
+                      </ion-col>
+                      <ion-col size="6">
+                      <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="lugar3" [(ngModel)]="ot.lugar3"></ion-input>
+                      </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 3)">
+                  <ion-col size="6">
+                      <ion-label>Empresa</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-select interface="popover" doneText="Aceptar" cancelText="Cancelar"
+                      name="empresa3" [(ngModel)]="ot.empresa3">
+                        <ion-select-option value="Cmc">Cmc</ion-select-option>
+                        <ion-select-option value="Gremi">Gremi</ion-select-option>
+                        <ion-select-option value="Mexgeo">Mexgeo</ion-select-option>
+                        <ion-select-option value="Herza">Herza</ion-select-option>
+                        <ion-select-option value="Master drilling">Master drilling</ion-select-option>
+                        <ion-select-option value="Cammsa">Cammsa</ion-select-option>
+                        <ion-select-option value="Avar">Avar</ion-select-option>
+                        <ion-select-option value="Otro">Otro</ion-select-option>
+                      </ion-select>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 3)">
+                  <ion-col size="6">
+                  <ion-label>Hora Inicial</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                        <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                          picker-format="H:mm A" 
+                          value="" name="horainicial3" placeholder="ej: 11:25 AM"
+                          [(ngModel)]="ot.horainicial3">
+                        </ion-datetime>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 3)">
+                  <ion-col size="6">
+                    <ion-label>Hora Final</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                          picker-format="H:mm A" 
+                          value="" name="horafinal3" placeholder="ej: 11:25 AM"
+                          [(ngModel)]="ot.horafinal3">
+                        </ion-datetime>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 3)" class="bottom">
+                  <ion-col size="6">
+                      <ion-label>Breve Descripción</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="observaciones3" [(ngModel)]="ot.observaciones3"></ion-input>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 4)">
+                    <ion-col size="6">
+                      <ion-label> Codigo Operación</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                          <ion-select interface="popover"  okText="Aceptar" cancelText="Cancelar"
+                            [value]="ot.codigo_operacion4" (ionChange)="optionsFn($event, 'codigo_operacion4')">
+                              <ion-select-option value="R101">R101 Abastecimiento de planta movil</ion-select-option>
+                              <ion-select-option value="R102">R102 Producción de concreto</ion-select-option>
+                              <ion-select-option value="R103">R103 Producción de fraguamax</ion-select-option>
+                              <ion-select-option value="R104">R104 Producción de concreto (Zarpeo)</ion-select-option><ion-select-option value="R105">Otros</ion-select-option>
+                          </ion-select>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 4)">
+                  <ion-col size="6">
+                    <ion-label>Nivel</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="nivel4" [(ngModel)]="ot.nivel4"></ion-input>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 4)">
+                      <ion-col size="6">
+                      <ion-label>Lugar</ion-label>  
+                      </ion-col>
+                      <ion-col size="6">
+                      <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="lugar4" [(ngModel)]="ot.lugar4"></ion-input>
+                      </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 4)">
+                  <ion-col size="6">
+                      <ion-label>Empresa</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-select interface="popover" doneText="Aceptar" cancelText="Cancelar"
+                      name="empresa4" [(ngModel)]="ot.empresa4">
+                        <ion-select-option value="Cmc">Cmc</ion-select-option>
+                        <ion-select-option value="Gremi">Gremi</ion-select-option>
+                        <ion-select-option value="Mexgeo">Mexgeo</ion-select-option>
+                        <ion-select-option value="Herza">Herza</ion-select-option>
+                        <ion-select-option value="Master drilling">Master drilling</ion-select-option>
+                        <ion-select-option value="Cammsa">Cammsa</ion-select-option>
+                        <ion-select-option value="Avar">Avar</ion-select-option>
+                        <ion-select-option value="Otro">Otro</ion-select-option>
+                      </ion-select>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 4)">
+                  <ion-col size="6">
+                    <ion-label>Hora Inicial</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                          picker-format="H:mm A" 
+                          value="" name="horainicial4" placeholder="ej: 11:25 AM"
+                          [(ngModel)]="ot.horainicial4">
+                        </ion-datetime>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 4)">
+                  <ion-col size="6">
+                    <ion-label>Hora Final</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                    picker-format="H:mm A" 
+                    value="" name="horafinal4" placeholder="ej: 11:25 AM"
+                    [(ngModel)]="ot.horafinal4">
+                    </ion-datetime>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 4)" class="bottom">
+                  <ion-col size="6">
+                      <ion-label>Breve Descripción</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="observaciones4" [(ngModel)]="ot.observaciones4"></ion-input>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 5)">
+                    <ion-col size="6">
+                      <ion-label> Codigo Operación</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                      <ion-select interface="popover"  okText="Aceptar" cancelText="Cancelar"
+                      [value]="ot.codigo_operacion5" (ionChange)="optionsFn($event, 'codigo_operacion5')">
+                        <ion-select-option value="R101">R101 Abastecimiento de planta movil</ion-select-option>
+                        <ion-select-option value="R102">R102 Producción de concreto</ion-select-option>
+                        <ion-select-option value="R103">R103 Producción de fraguamax</ion-select-option>
+                        <ion-select-option value="R104">R104 Producción de concreto (Zarpeo)</ion-select-option><ion-select-option value="R105">Otros</ion-select-option>
+                    </ion-select>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 5)">
+                  <ion-col size="6">
+                    <ion-label>Nivel</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="nivel5" [(ngModel)]="ot.nivel5"></ion-input>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 5)">
+                      <ion-col size="6">
+                      <ion-label>Lugar</ion-label>  
+                      </ion-col>
+                      <ion-col size="6">
+                      <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="lugar5" [(ngModel)]="ot.lugar5"></ion-input>
+                      </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 5)">
+                  <ion-col size="6">
+                      <ion-label>Empresa</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-select interface="popover" doneText="Aceptar" cancelText="Cancelar"
+                      name="empresa5" [(ngModel)]="ot.empresa5">
+                        <ion-select-option value="Cmc">Cmc</ion-select-option>
+                        <ion-select-option value="Gremi">Gremi</ion-select-option>
+                        <ion-select-option value="Mexgeo">Mexgeo</ion-select-option>
+                        <ion-select-option value="Herza">Herza</ion-select-option>
+                        <ion-select-option value="Master drilling">Master drilling</ion-select-option>
+                        <ion-select-option value="Cammsa">Cammsa</ion-select-option>
+                        <ion-select-option value="Avar">Avar</ion-select-option>
+                        <ion-select-option value="Otro">Otro</ion-select-option>
+                      </ion-select>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 5)">
+                  <ion-col size="6">
+                    <ion-label>Hora Inicial</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                    picker-format="H:mm A" 
+                    value="" name="horainicial5" placeholder="ej: 11:25 AM"
+                    [(ngModel)]="ot.horainicial5">
+                    </ion-datetime>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 5)">
+                  <ion-col size="6">
+                    <ion-label>Hora Final</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                    picker-format="H:mm A" 
+                    value="" name="horafinal5" placeholder="ej: 11:25 AM"
+                    [(ngModel)]="ot.horafinal5">
+                    </ion-datetime>
+                  </ion-col>
+                </ion-row>
+              <ion-row *ngIf="(cont >= 5)" class="bottom">
+                  <ion-col size="6">
+                      <ion-label>Breve Descripción</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="observaciones5" [(ngModel)]="ot.observaciones5">
+                      </ion-input>
+                  </ion-col>
+              </ion-row>
+                <ion-row *ngIf="(cont >= 6)">
+                    <ion-col size="6">
+                      <ion-label> Codigo Operación</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                      <ion-select interface="popover"  okText="Aceptar" cancelText="Cancelar"
+                        [value]="ot.codigo_operacion6" (ionChange)="optionsFn($event, 'codigo_operacion6')">
+                          <ion-select-option value="R101">R101 Abastecimiento de planta movil</ion-select-option>
+                          <ion-select-option value="R102">R102 Producción de concreto</ion-select-option>
+                          <ion-select-option value="R103">R103 Producción de fraguamax</ion-select-option>
+                          <ion-select-option value="R104">R104 Producción de concreto (Zarpeo)</ion-select-option><ion-select-option value="R105">Otros</ion-select-option>
+                      </ion-select>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 6)">
+                  <ion-col size="6">
+                    <ion-label>Nivel</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="nivel6" [(ngModel)]="ot.nivel6"></ion-input>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 6)">
+                      <ion-col size="6">
+                      <ion-label>Lugar</ion-label>  
+                      </ion-col>
+                      <ion-col size="6">
+                      <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="lugar6" [(ngModel)]="ot.lugar6"></ion-input>
+                      </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 6)">
+                  <ion-col size="6">
+                      <ion-label>Empresa</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-select interface="popover" doneText="Aceptar" cancelText="Cancelar"
+                      name="empresa6" [(ngModel)]="ot.empresa6">
+                        <ion-select-option value="Cmc">Cmc</ion-select-option>
+                        <ion-select-option value="Gremi">Gremi</ion-select-option>
+                        <ion-select-option value="Mexgeo">Mexgeo</ion-select-option>
+                        <ion-select-option value="Herza">Herza</ion-select-option>
+                        <ion-select-option value="Master drilling">Master drilling</ion-select-option>
+                        <ion-select-option value="Cammsa">Cammsa</ion-select-option>
+                        <ion-select-option value="Avar">Avar</ion-select-option>
+                        <ion-select-option value="Otro">Otro</ion-select-option>
+                      </ion-select>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 6)">
+                  <ion-col size="6">
+                  <ion-label>Hora Inicial</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                    picker-format="H:mm A" 
+                    value="" name="horainicial6" placeholder="ej: 11:25 AM"
+                    [(ngModel)]="ot.horainicial6">
+                    </ion-datetime>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 6)">
+                  <ion-col size="6">
+                    <ion-label>Hora Final</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                    picker-format="H:mm A" 
+                    value="" name="horafinal6" placeholder="ej: 11:25 AM"
+                    [(ngModel)]="ot.horafinal6">
+                    </ion-datetime>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="(cont >= 6)" class="bottom">
+                    <ion-col size="6">
+                        <ion-label>Breve Descripción</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="observaciones6" [(ngModel)]="ot.observaciones6"></ion-input>
+                    </ion-col>
+                </ion-row>
+            <ion-row *ngIf="(cont >= 7)">
+                <ion-col size="6">
+                  <ion-label> Codigo Operación</ion-label>  
+                </ion-col>
+                <ion-col size="6">
+                  <ion-select interface="popover"  okText="Aceptar" cancelText="Cancelar"
+                    [value]="ot.codigo_operacion7" (ionChange)="optionsFn($event, 'codigo_operacion7')">
+                      <ion-select-option value="R101">R101 Abastecimiento de planta movil</ion-select-option>
+                      <ion-select-option value="R102">R102 Producción de concreto</ion-select-option>
+                      <ion-select-option value="R103">R103 Producción de fraguamax</ion-select-option>
+                      <ion-select-option value="R104">R104 Producción de concreto (Zarpeo)</ion-select-option><ion-select-option value="R105">Otros</ion-select-option>
+                  </ion-select>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="(cont >= 7)">
+              <ion-col size="6">
+                <ion-label>Nivel</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="nivel7" [(ngModel)]="ot.nivel7"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="(cont >= 7)">
+                  <ion-col size="6">
+                  <ion-label>Lugar</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                  <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="lugar7" [(ngModel)]="ot.lugar7"></ion-input>
+                  </ion-col>
+            </ion-row>
+            <ion-row *ngIf="(cont >= 7)">
+              <ion-col size="6">
+                  <ion-label>Empresa</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                      <ion-select interface="popover" doneText="Aceptar" cancelText="Cancelar"
+                      name="empresa7" [(ngModel)]="ot.empresa7">
+                        <ion-select-option value="Cmc">Cmc</ion-select-option>
+                        <ion-select-option value="Gremi">Gremi</ion-select-option>
+                        <ion-select-option value="Mexgeo">Mexgeo</ion-select-option>
+                        <ion-select-option value="Herza">Herza</ion-select-option>
+                        <ion-select-option value="Master drilling">Master drilling</ion-select-option>
+                        <ion-select-option value="Cammsa">Cammsa</ion-select-option>
+                        <ion-select-option value="Avar">Avar</ion-select-option>
+                        <ion-select-option value="Otro">Otro</ion-select-option>
+                      </ion-select>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="(cont >= 7)">
+              <ion-col size="6">
+              <ion-label>Hora Inicial</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                picker-format="H:mm A" 
+                value="" name="horainicial7" placeholder="ej: 11:25 AM"
+                [(ngModel)]="ot.horainicial7">
+                </ion-datetime>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="(cont >= 7)">
+              <ion-col size="6">
+              <ion-label>Hora Final</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                picker-format="H:mm A" 
+                value="" name="horafinal7" placeholder="ej: 11:25 AM"
+                [(ngModel)]="ot.horafinal7">
+                </ion-datetime>
+              </ion-col>
+            </ion-row>
+            
+            <ion-row *ngIf="(cont >= 7)" class="bottom">
+                <ion-col size="6">
+                    <ion-label>Breve Descripción</ion-label>  
+                </ion-col>
+                <ion-col size="6">
+                    <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="observaciones7" [(ngModel)]="ot.observaciones7"></ion-input>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="(cont >= 8)">
+                <ion-col size="6">
+                  <ion-label> Codigo Operación</ion-label>  
+                </ion-col>
+                <ion-col size="6">
+                  <ion-select interface="popover"  okText="Aceptar" cancelText="Cancelar"
+                  [value]="ot.codigo_operacion8" (ionChange)="optionsFn($event, 'codigo_operacion8')">
+                    <ion-select-option value="R101">R101 Abastecimiento de planta movil</ion-select-option>
+                    <ion-select-option value="R102">R102 Producción de concreto</ion-select-option>
+                    <ion-select-option value="R103">R103 Producción de fraguamax</ion-select-option>
+                    <ion-select-option value="R104">R104 Producción de concreto (Zarpeo)</ion-select-option><ion-select-option value="R105">Otros</ion-select-option>
+                  </ion-select>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="(cont >= 8)">
+              <ion-col size="6">
+                <ion-label>Nivel</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="nivel8" [(ngModel)]="ot.nivel8"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="(cont >= 8)">
+                  <ion-col size="6">
+                  <ion-label>Lugar</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                  <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="lugar8" [(ngModel)]="ot.lugar8"></ion-input>
+                  </ion-col>
+            </ion-row>
+            <ion-row *ngIf="(cont >= 8)">
+              <ion-col size="6">
+                  <ion-label>Empresa</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                  <ion-select interface="popover" doneText="Aceptar" cancelText="Cancelar"
+                      name="empresa8" [(ngModel)]="ot.empresa8">
+                        <ion-select-option value="Cmc">Cmc</ion-select-option>
+                        <ion-select-option value="Gremi">Gremi</ion-select-option>
+                        <ion-select-option value="Mexgeo">Mexgeo</ion-select-option>
+                        <ion-select-option value="Herza">Herza</ion-select-option>
+                        <ion-select-option value="Master drilling">Master drilling</ion-select-option>
+                        <ion-select-option value="Cammsa">Cammsa</ion-select-option>
+                        <ion-select-option value="Avar">Avar</ion-select-option>
+                        <ion-select-option value="Otro">Otro</ion-select-option>
+                      </ion-select>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="(cont >= 8)">
+              <ion-col size="6">
+              <ion-label>Hora Inicial</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                picker-format="H:mm A" 
+                value="" name="horainicial8" placeholder="ej: 11:25 AM"
+                [(ngModel)]="ot.horainicial8">
+                </ion-datetime>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="(cont >= 8)">
+              <ion-col size="6">
+              <ion-label>Hora Final</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-datetime doneText="Aceptar" cancelText="Cancelar" display-format="H:mm A" 
+                picker-format="H:mm A" 
+                value="" name="horafinal8" placeholder="ej: 11:25 AM"
+                [(ngModel)]="ot.horafinal8">
+                </ion-datetime>
+              </ion-col>
+            </ion-row>
+            
+            
+            <ion-row>
+              <ion-col size="12">
+                <ion-button  
+                size="small"
+                shape="round"
+                color="primary"
+                (click)="sumar()"
+                >
+                Agregar
+                </ion-button>
+                <ion-button  
+                size="small"
+                shape="round"
+                color="danger"
+                (click)="restar()"
+                >
+                Remover
+                </ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6">
+                <ion-label>Observaciones</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">
+                <ion-textarea name="observaciones" [(ngModel)]="ot.ob_generales"></ion-textarea>
+              </ion-col>
+            </ion-row>
+           
+         <ion-row>
+            <ion-col size="6">
+                <ion-label>Nombre del Supervisor Avar</ion-label> 
+                <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="nombre_supavar" 
+                [(ngModel)]="ot.nombre_supavar"></ion-input> 
+            </ion-col>
+            <ion-col size="6">
+                <ion-label>Nombre del Contratista</ion-label>
+                <ion-input  okText="Aceptar" cancelText="Cancelar" type="text" name="nombre_supcontratista" 
+                [(ngModel)]="ot.nombre_supcontratista"></ion-input>
+            </ion-col>
+         </ion-row>
+         <ion-row>
+            <ion-col size="12">
+              <ion-button type="submit" 
+                    expand="block" 
+                    fill="solid" 
+                    shape="round"
+                    color="primary"
+                    >
+              Guardar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+    </form>
+</ion-content>

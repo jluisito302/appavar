@@ -1,0 +1,36 @@
+<app-header titulo="Abonos a créditos"></app-header>
+
+<ion-content>
+  <form (submit)="enviar()" class="center">
+    <ion-item class="top">
+      <ion-label color="danger">* Elige el proveedor</ion-label>
+    </ion-item>
+    <ion-row>
+      <ion-col size="12">
+        <ion-select interface="popover" name="proveedor" [(ngModel)]="model.proveedor">
+          <ion-select-option *ngFor="let p of $proveedores" value="{{ p.id }}">
+            {{ p.nombre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+      <ion-button type="submit" 
+                fill="solid" 
+                shape="round"
+                color="primary"
+                >
+          Aceptar
+      </ion-button>
+    </form>
+    <ion-card *ngIf="$lista != null">
+      <ion-list>
+        <ion-item *ngFor="let item of $lista">
+          <ion-label>
+            <h2>Monto abonado: {{item[1] | currency: 'USD'}}</h2>
+            <h3>Fecha: {{item[0] | date: 'dd/MM/yyyy'}}</h3>
+            <p>{{item[2]}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+</ion-content>

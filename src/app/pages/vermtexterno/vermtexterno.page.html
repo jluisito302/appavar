@@ -1,0 +1,99 @@
+<app-header titulo="MAntenimineto Externos"></app-header>
+
+<ion-content>
+<ion-item>
+  <ion-label>Folio: <b>{{modelo['num_remision']}}</b></ion-label>
+</ion-item>
+<ion-item>
+  <ion-label>Nombre Taller <b>{{modelo['taller_mecanico']}}</b></ion-label>
+</ion-item>
+<ion-item>
+  <ion-label>Equipo/Vehiculo <b>{{modelo['equipo_vehiculo']}}</b></ion-label>
+</ion-item>
+<ion-item>
+  <ion-label>Fecha <b>{{modelo['fecha'] | date: 'dd/MM/yyyy'}}</b></ion-label>
+</ion-item>
+<ion-item>
+  <ion-label>Total: <b>{{suma | currency: 'USD'}}</b></ion-label>
+</ion-item>
+<ion-item *ngIf="modelo['cantidad1'] != null">
+  <ion-label>
+    <h2>Cantidad <b>{{modelo['cantidad1']}}</b></h2>
+    <h2>Descripción <b>{{modelo['descripcion1']}}</b></h2>
+    <h2>Precio <b>{{modelo['precio1']}}</b></h2>
+    <h2>Importe <b>{{modelo['importe1']}}</b></h2>
+  </ion-label>
+</ion-item>
+<ion-item *ngIf="modelo['cantidad2'] != null">
+  <ion-label>
+    <h2>Cantidad <b>{{modelo['cantidad2']}}</b></h2>
+    <h2>Descripción <b>{{modelo['descripcion2']}}</b></h2>
+    <h2>Precio <b>{{modelo['precio2']}}</b></h2>
+    <h2>Importe <b>{{modelo['importe2']}}</b></h2>
+  </ion-label>
+</ion-item>
+<ion-item *ngIf="modelo['cantidad3'] != null">
+  <ion-label>
+    <h2>Cantidad <b>{{modelo['cantidad3']}}</b></h2>
+    <h2>Descripción <b>{{modelo['descripcion3']}}</b></h2>
+    <h2>Precio <b>{{modelo['precio3']}}</b></h2>
+    <h2>Importe <b>{{modelo['importe3']}}</b></h2>
+  </ion-label>
+</ion-item>
+<ion-item *ngIf="modelo['cantidad4'] != null">
+  <ion-label>
+    <h2>Cantidad <b>{{modelo['cantidad4']}}</b></h2>
+    <h2>Descripción <b>{{modelo['descripcion4']}}</b></h2>
+    <h2>Precio <b>{{modelo['precio4']}}</b></h2>
+    <h2>Importe <b>{{modelo['importe4']}}</b></h2>
+  </ion-label>
+</ion-item>
+<ion-item *ngIf="modelo['cantidad5'] != null">
+  <ion-label>
+    <h2>Cantidad <b>{{modelo['cantidad5']}}</b></h2>
+    <h2>Descripción <b>{{modelo['descripcion5']}}</b></h2>
+    <h2>Precio <b>{{modelo['precio5']}}</b></h2>
+    <h2>Importe <b>{{modelo['importe5']}}</b></h2>
+  </ion-label>
+</ion-item>
+<ion-item *ngIf="modelo['cantidad6'] != null">
+  <ion-label>
+    <h2>Cantidad <b>{{modelo['cantidad6']}}</b></h2>
+    <h2>Descripción <b>{{modelo['descripcion6']}}</b></h2>
+    <h2>Precio <b>{{modelo['precio6']}}</b></h2>
+    <h2>Importe <b>{{modelo['importe6']}}</b></h2>
+  </ion-label>
+</ion-item>
+<ion-item *ngIf="modelo['cantidad7'] != null">
+  <ion-label>
+    <h2>Cantidad <b>{{modelo['cantidad7']}}</b></h2>
+    <h2>Descripción <b>{{modelo['descripcion7']}}</b></h2>
+    <h2>Precio <b>{{modelo['precio7']}}</b></h2>
+    <h2>Importe <b>{{modelo['importe7']}}</b></h2>
+  </ion-label>
+</ion-item>
+<ion-item *ngIf="modelo['cantidad8'] != null">
+  <ion-label>
+    <h2>Cantidad <b>{{modelo['cantidad8']}}</b></h2>
+    <h2>Descripción <b>{{modelo['descripcion8']}}</b></h2>
+    <h2>Precio <b>{{modelo['precio8']}}</b></h2>
+    <h2>Importe <b>{{modelo['importe8']}}</b></h2>
+  </ion-label>
+</ion-item>
+<ion-item *ngIf="modelo['cantidad9'] != null">
+  <ion-label>
+    <h2>Cantidad <b>{{modelo['cantidad9']}}</b></h2>
+    <h2>Descripción <b>{{modelo['descripcion9']}}</b></h2>
+    <h2>Precio <b>{{modelo['precio9']}}</b></h2>
+    <h2>Importe <b>{{modelo['importe9']}}</b></h2>
+  </ion-label>
+</ion-item>
+<ion-item *ngIf="modelo['cantidad10'] != null">
+  <ion-label>
+    <h2>Cantidad <b>{{modelo['cantidad10']}}</b></h2>
+    <h2>Descripción <b>{{modelo['descripcion10']}}</b></h2>
+    <h2>Precio <b>{{modelo['precio10']}}</b></h2>
+    <h2>Importe <b>{{modelo['importe10']}}</b></h2>
+  </ion-label>
+</ion-item>
+</ion-content>

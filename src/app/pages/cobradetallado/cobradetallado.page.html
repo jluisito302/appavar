@@ -1,0 +1,18 @@
+<app-header titulo="Costos & cobros detallados"></app-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>
+      <h2>Obra: <b>{{obra.nombre_obra}}</b></h2>
+      <h2>Monto cobrado: <b>{{obra.cant_cobrada | currency: 'USD'}}</b></h2>
+      <h2>{{obra.estatus_cobro}}</h2>
+    </ion-label>
+  </ion-item>
+<ion-list *ngFor="let dato of datos | async">
+  <ion-item >
+    <ion-label>
+      <h2>{{dato}}</h2>
+    </ion-label>
+  </ion-item>
+</ion-list>
+</ion-content>

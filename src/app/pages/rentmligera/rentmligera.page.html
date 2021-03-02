@@ -1,0 +1,25 @@
+<app-header titulo="Maquinaria Ligera"></app-header>
+
+<ion-content>
+  <ion-list *ngFor="let item of array | async">
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label>
+          <h2>
+            <ion-icon name="checkmark-outline" color="primary" *ngIf="item.bien != null"></ion-icon> 
+            Maquinaria: <b>{{item.maquinaria}}</b>
+          </h2>
+          <h2>Fecha de renta: <b>{{item.fecha_renta | date: 'dd/MM/yyyy'}}</b></h2>
+          <h2>Montode la renta: <b>{{item.monto_renta | currency: 'USD'}}</b></h2>
+          <p>{{item.condiciones_devolucion}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end" *ngIf="item.bien == null">
+        <ion-item-option (click)="valido(item.id)">
+          <ion-icon name="checkmark-outline"></ion-icon>
+          Bien
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

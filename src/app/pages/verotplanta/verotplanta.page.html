@@ -1,0 +1,910 @@
+<app-header titulo="Actividades (OT)"></app-header>
+
+<ion-content>
+  <ion-fab horizontal="end" vertical="top" slot="fixed" edge 
+   *ngIf="usuario['tuserint'] == 16 || usuario['tuserint'] == 24  || usuario['tuserint'] == 4">
+     <ion-fab-button color="tertiary">
+       <ion-icon name="add"></ion-icon>
+     </ion-fab-button>
+     <ion-fab-list>
+       <ion-fab-button color="light" (click)="valido()">
+         <ion-icon name="checkmark-outline"></ion-icon>
+       </ion-fab-button>
+       <ion-fab-button color="light" routerLink="/editotplanta/{{ ot.id }}">
+         <ion-icon name="create-outline"></ion-icon>
+       </ion-fab-button>
+     </ion-fab-list>
+   </ion-fab>
+
+
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-label><b>* </b>Folio</ion-label>
+              <br>
+              <ion-chip color="tertiary">
+                  <ion-label>{{ ot.folio }}</ion-label>
+              </ion-chip>
+            </ion-col>
+            <ion-col>
+                <ion-label><b>* </b>Fecha (Año-mes-día)</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.fecha }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+                <ion-label><b>* </b>Planta de concreto</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.camion }}</ion-label>
+                </ion-chip>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Conductor</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.nombre_operador }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="6">
+                  <ion-label><b>* </b>Turno</ion-label>
+                      <br>
+                      <ion-chip color="tertiary">
+                          <ion-label>{{ ot.turno }}</ion-label>
+                      </ion-chip>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-label>Obra</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.obra }}</ion-label>
+                </ion-chip>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Área</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.area }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Kilometraje Inicial</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.kilometraje_i }}</ion-label>
+                </ion-chip>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Kilometraje Final</ion-label>
+              <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.kilometraje_f }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Ubicación Inicial</ion-label>
+              <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.ubicacion_inicial }}</ion-label>
+                </ion-chip>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Ubicación Final</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.ubicacion_final }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">Reporte de Consumo en Litros</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Diesel</ion-label>
+              <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.consumo_diesel }}</ion-label>
+                </ion-chip>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Aceite de motor</ion-label>
+              <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.consumo_aceite_motor }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Aceite de trasmisión</ion-label>
+              <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.consumo_aceite_transmision }}</ion-label>
+                </ion-chip>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating"><b>* </b>Aceite Hidrahulico</ion-label>
+              <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.consumo_aceite_hidraulico }}</ion-label>
+                </ion-chip>
+            </ion-col>
+          </ion-row>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">Trabajo Realizado</ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-card color="secondary">
+            <ion-item color="secondary">
+                <ion-label>Códigos de Operaciones</ion-label>
+            </ion-item>
+            <ion-card-content>
+              <ion-label>R101 Abastecimiento de planta movil</ion-label>
+              <br>
+              <ion-label>R102 Producción de concreto</ion-label>
+              <br>
+              <ion-label>R103 Producción de fraguamax</ion-label>
+              <br>
+              <ion-label>R104 Producción de concreto (Zarpeo)</ion-label>
+              <br>
+              <ion-label>R105 Otros</ion-label>
+            </ion-card-content>
+          </ion-card>
+                <ion-row>
+                    <ion-col size="6">
+                      <ion-label> Codigo Operación</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.codigo_operacion }}</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-label>Nivel</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.nivel }}</ion-label>
+                        </ion-chip>
+                  </ion-col>
+                  </ion-row>
+                <ion-row>
+                    <ion-col size="6">
+                      <ion-label>Lugar</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                      <ion-chip color="tertiary">
+                          <ion-label>{{ ot.lugar }}</ion-label>
+                      </ion-chip>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                      <ion-label>Empresa</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-chip color="tertiary">
+                          <ion-label>{{ ot.empresa }}</ion-label>
+                      </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                  <ion-label>Hora Inicial</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horainicial }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                  <ion-label>Hora Final</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horafinal }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-label>Horometro Inicial</ion-label>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horometro_inicial1 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-label>Horometro Final</ion-label>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horometro_final1 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+               <ion-row>
+                  <ion-col size="6">
+                      <ion-label>Breve Descripción</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.observaciones }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+               </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion2 != null">
+                    <ion-col size="6">
+                      <ion-label> Codigo Operación</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.codigo_operacion2 }}</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion2 != null">
+                  <ion-col size="6">
+                    <ion-label>Nivel</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.nivel2 }}</ion-label>
+                        </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion2 != null">
+                    <ion-col size="6">
+                      <ion-label>Lugar</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.nivel2 }}</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion2 != null">
+                  <ion-col size="6">
+                      <ion-label>Empresa</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.empresa2 }}</ion-label>
+                        </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion2 != null">
+                  <ion-col size="6">
+                  <ion-label>Hora Inicial</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.horainicial2 }}</ion-label>
+                        </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion2 != null">
+                  <ion-col size="6">
+                  <ion-label>Hora Final</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.horafinal2 }}</ion-label>
+                        </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion2 != null">
+                  <ion-col size="6">
+                    <ion-label>Horometro Inicial</ion-label>
+                  </ion-col>
+                  <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.horometro_inicial2 }}</ion-label>
+                        </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion2 != null">
+                  <ion-col size="6">
+                    <ion-label>Horometro Final</ion-label>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horometro_final2 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion2 != null" class="bottom">
+                    <ion-col size="6">
+                        <ion-label>Breve Descripción</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.observaciones2 }}</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion3 != null">
+                <ion-col size="6">
+                  <ion-label> Codigo Operación</ion-label>  
+                </ion-col>
+                <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.codigo_operacion3 }}</ion-label>
+                    </ion-chip>
+                </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion3 != null">
+              <ion-col size="6">
+                <ion-label>Nivel</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-input type="text" name="nivel3" [(ngModel)]="ot.nivel3"></ion-input>
+              </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion3 != null">
+                      <ion-col size="6">
+                      <ion-label>Lugar</ion-label>  
+                      </ion-col>
+                      <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.lugar3 }}</ion-label>
+                        </ion-chip>
+                      </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion3 != null">
+                  <ion-col size="6">
+                      <ion-label>Empresa</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-chip color="tertiary">
+                        <ion-label>{{ ot.empresa3 }}</ion-label>
+                      </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion3 != null">
+                  <ion-col size="6">
+                  <ion-label>Hora Inicial</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.horainicial3 }}</ion-label>
+                        </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion3 != null">
+                  <ion-col size="6">
+                    <ion-label>Hora Final</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.horafinal3 }}</ion-label>
+                        </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion3 != null">
+                  <ion-col size="6">
+                    <ion-label>Horometro Inicial</ion-label>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horometro_inicial3 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion3 != null">
+                  <ion-col size="6">
+                    <ion-label>Horometro Final</ion-label>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horometro_final3 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion3 != null" class="bottom">
+                  <ion-col size="6">
+                      <ion-label>Breve Descripción</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-chip color="tertiary">
+                        <ion-label>{{ ot.observaciones3 }}</ion-label>
+                      </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion4 != null">
+                    <ion-col size="6">
+                      <ion-label> Codigo Operación</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                          
+                          <ion-chip color="tertiary">
+                            <ion-label>{{ ot.codigo_operacion4 }}</ion-label>
+                          </ion-chip>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion4 != null">
+                  <ion-col size="6">
+                    <ion-label>Nivel</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.nivel4 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion4 != null">
+                      <ion-col size="6">
+                      <ion-label>Lugar</ion-label>  
+                      </ion-col>
+                      <ion-col size="6">
+                      <ion-chip color="tertiary">
+                        <ion-label>{{ ot.lugar4 }}</ion-label>
+                      </ion-chip>
+                      </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion4 != null">
+                  <ion-col size="6">
+                      <ion-label>Empresa</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-chip color="tertiary">
+                        <ion-label>{{ ot.empresa4 }}</ion-label>
+                      </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion4 != null">
+                  <ion-col size="6">
+                    <ion-label>Hora Inicial</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.horainicial4 }}</ion-label>
+                        </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion4 != null">
+                  <ion-col size="6">
+                    <ion-label>Hora Final</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horafinal4 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion4 != null">
+                  <ion-col size="6">
+                    <ion-label>Horometro Inicial</ion-label>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horometro_inicial4 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion4 != null">
+                  <ion-col size="6">
+                    <ion-label>Horometro Final</ion-label>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horometro_final4 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion4 != null" class="bottom">
+                  <ion-col size="6">
+                      <ion-label>Breve Descripción</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-chip color="tertiary">
+                        <ion-label>{{ ot.observaciones4 }}</ion-label>
+                      </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion5 != null">
+                    <ion-col size="6">
+                      <ion-label> Codigo Operación</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.codigo_operacion5 }}</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion5 != null">
+                  <ion-col size="6">
+                    <ion-label>Nivel</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.nivel5 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion5 != null">
+                      <ion-col size="6">
+                      <ion-label>Lugar</ion-label>  
+                      </ion-col>
+                      <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.nivel5 }}</ion-label>
+                        </ion-chip>
+                      </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion5 != null">
+                  <ion-col size="6">
+                      <ion-label>Empresa</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.empresa5 }}</ion-label>
+                        </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion5 != null">
+                  <ion-col size="6">
+                    <ion-label>Hora Inicial</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horainicial5 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion5 != null">
+                  <ion-col size="6">
+                    <ion-label>Hora Final</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horafinal5 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion5 != null">
+                  <ion-col size="6">
+                    <ion-label>Horometro Inicial</ion-label>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horometro_inicial5 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion5 != null">
+                  <ion-col size="6">
+                    <ion-label>Horometro Final</ion-label>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horometro_final5 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+              <ion-row *ngIf="ot.codigo_operacion5 != null" class="bottom">
+                  <ion-col size="6">
+                      <ion-label>Breve Descripción</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-chip color="tertiary">
+                        <ion-label>{{ ot.observaciones5 }}</ion-label>
+                      </ion-chip>
+                  </ion-col>
+              </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion6 != null">
+                    <ion-col size="6">
+                      <ion-label> Codigo Operación</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                      <ion-chip color="tertiary">
+                        <ion-label>{{ ot.codigo_operacion6 }}</ion-label>
+                      </ion-chip>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion6 != null">
+                  <ion-col size="6">
+                    <ion-label>Nivel</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.nivel6 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion6 != null">
+                      <ion-col size="6">
+                      <ion-label>Lugar</ion-label>  
+                      </ion-col>
+                      <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.lugar6 }}</ion-label>
+                        </ion-chip>
+                      </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion6 != null">
+                  <ion-col size="6">
+                      <ion-label>Empresa</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.empresa6 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion6 != null">
+                  <ion-col size="6">
+                  <ion-label>Hora Inicial</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horainicial6 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion6 != null">
+                  <ion-col size="6">
+                    <ion-label>Hora Final</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horafinal6 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion6 != null">
+                  <ion-col size="6">
+                    <ion-label>Horometro Inicial</ion-label>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horometro_inicial6 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion6 != null">
+                  <ion-col size="6">
+                    <ion-label>Horometro Final</ion-label>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.horometro_final6 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="ot.codigo_operacion6 != null" class="bottom">
+                    <ion-col size="6">
+                        <ion-label>Breve Descripción</ion-label>  
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-chip color="tertiary">
+                            <ion-label>{{ ot.observaciones6 }}</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion7 != null">
+                <ion-col size="6">
+                  <ion-label> Codigo Operación</ion-label>  
+                </ion-col>
+                <ion-col size="6">
+                  <ion-chip color="tertiary">
+                    <ion-label>{{ ot.codigo_operacion7 }}</ion-label>
+                </ion-chip>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion7 != null">
+              <ion-col size="6">
+                <ion-label>Nivel</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.nivel7 }}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion7 != null">
+                  <ion-col size="6">
+                  <ion-label>Lugar</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.lugar7 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion7 != null">
+              <ion-col size="6">
+                  <ion-label>Empresa</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                  <ion-chip color="tertiary">
+                    <ion-label>{{ ot.empresa7 }}</ion-label>
+                  </ion-chip>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion7 != null">
+              <ion-col size="6">
+              <ion-label>Hora Inicial</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.horainicial7 }}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion7 != null">
+              <ion-col size="6">
+              <ion-label>Hora Final</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.horafinal7 }}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion7 != null">
+              <ion-col size="6">
+                <ion-label>Horometro Inicial</ion-label>
+              </ion-col>
+              <ion-col size="6">
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.horometro_inicial7 }}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion7 != null">
+              <ion-col size="6">
+                <ion-label>Horometro Final</ion-label>
+              </ion-col>
+              <ion-col size="6">
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.horometro_final7 }}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion7 != null" class="bottom">
+                <ion-col size="6">
+                    <ion-label>Breve Descripción</ion-label>  
+                </ion-col>
+                <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.observaciones7 }}</ion-label>
+                    </ion-chip>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion8 != null">
+                <ion-col size="6">
+                  <ion-label> Codigo Operación</ion-label>  
+                </ion-col>
+                <ion-col size="6">
+                  <ion-chip color="tertiary">
+                    <ion-label>{{ ot.codigo_operacion8 }}</ion-label>
+                  </ion-chip>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion8 != null">
+              <ion-col size="6">
+                <ion-label>Nivel</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.nivel8 }}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion8 != null">
+                  <ion-col size="6">
+                  <ion-label>Lugar</ion-label>  
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.lugar8 }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion8 != null">
+              <ion-col size="6">
+                  <ion-label>Empresa</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.empresa8 }}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion8 != null">
+              <ion-col size="6">
+              <ion-label>Hora Inicial</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.horainicial8 }}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion8 != null">
+              <ion-col size="6">
+              <ion-label>Hora Final</ion-label>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.horafinal8 }}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion8 != null">
+              <ion-col size="6">
+                <ion-label>Horometro Inicial</ion-label>
+              </ion-col>
+              <ion-col size="6">
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.horometro_inicial8 }}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="ot.codigo_operacion8 != null" class="bottom">
+              <ion-col size="6">
+                <ion-label>Horometro Final</ion-label>
+              </ion-col>
+              <ion-col size="6">
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.horometro_final8 }}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+            
+            <ion-row>
+              <ion-col size="6">
+                <ion-label>Observaciones</ion-label>
+              </ion-col>
+                <ion-col size="6">
+                    <ion-chip color="tertiary">
+                        <ion-label>{{ ot.ob_generales }}</ion-label>
+                    </ion-chip>
+                </ion-col>
+            </ion-row>
+            
+          
+         <ion-row>
+            <ion-col size="6">
+                <ion-label><b>* </b>Nombre del Supervisor Avar</ion-label> 
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.nombre_supavar }}</ion-label>
+                </ion-chip>
+            </ion-col>
+            <ion-col size="6">
+                <ion-label><b>* </b>Nombre del Contratista</ion-label>
+                <br>
+                <ion-chip color="tertiary">
+                    <ion-label>{{ ot.nombre_supcontratista }}</ion-label>
+                </ion-chip>
+            </ion-col>
+         </ion-row>
+        
+
+        </ion-grid>
+</ion-content>

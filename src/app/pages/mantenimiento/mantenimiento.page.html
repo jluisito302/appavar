@@ -1,0 +1,48 @@
+<app-header titulo="Mantenimiento"></app-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="6">
+        <ion-card [routerLink]="['/vermtto']">
+            <div class="center">
+                <ion-icon name="build-outline" class="iconos"></ion-icon>
+            </div>
+            <ion-card-content>
+                <h2>Ver Mantenimientos</h2>
+            </ion-card-content>
+        </ion-card>
+    </ion-col>
+    <ion-col size="6">
+        <ion-card [routerLink]="['/regdecostos']">
+            <div class="center">
+                <ion-icon name="file-tray-full-outline" class="iconos"></ion-icon>
+            </div>
+            <ion-card-content>
+                <h2>Ver registro de Costos</h2>
+            </ion-card-content>
+        </ion-card>
+    </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col size="6">
+    <ion-card [routerLink]="['/vermttoreg']">
+        <div class="center">
+            <ion-icon name="subway-outline" class="iconos"></ion-icon>
+        </div>
+        <ion-card-content>
+            <h2>Equipos/Camionetas</h2>
+        </ion-card-content>
+    </ion-card>
+  </ion-col>
+  <ion-col size="6">
+    <ion-card [routerLink]="['/mttoexternos']">
+        <div class="center">
+            <ion-icon name="reader-outline" class="iconos"></ion-icon>
+        </div>
+        <ion-card-content>
+            <h2>Mttos Taller/Externo</h2>
+        </ion-card-content>
+    </ion-card>
+  </ion-col>
+</ion-row>
+</ion-content>

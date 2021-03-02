@@ -1,0 +1,49 @@
+<app-header titulo="Usuarios"></app-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="4">
+        <ion-input (ionChange)="buscar($event)" showCancelButton="always" placeholder="Buscar...">
+          <ion-icon name="search"></ion-icon>
+        </ion-input>
+      </ion-col>
+      <ion-col size="8">
+        <ion-chip color="primary" (click)="nombre()">
+          <ion-label>Nombre</ion-label>
+        </ion-chip>
+        <ion-chip color="primary" (click)="numero()">
+          <ion-label>Usuario</ion-label>
+        </ion-chip>
+        <ion-chip color="primary" (click)="tipo()">
+          <ion-label>Tipo</ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list>
+    <ion-item-sliding #lista *ngFor="let users of usuarios$ | async | filtro: textBuscar: columna">
+      <ion-item>
+        <ion-avatar slot="start" *ngIf="users.foto == null">
+          <img src="/assets/user.png">
+        </ion-avatar>
+        <ion-avatar slot="start" *ngIf="users.foto != null">
+          <img src="http://localhost/avar/public/img/users/{{users.foto}}">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ users.name }}</h2>
+          <h3>Tipo: {{ users.tipouser }}</h3>
+          <p>Usuario: {{ users.username }}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="primary"  routerLink="/edituser/{{ users.id }}">
+          <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+</ion-list>
+</ion-content>

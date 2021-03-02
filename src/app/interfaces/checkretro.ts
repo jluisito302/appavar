@@ -1,0 +1,44 @@
+export interface Checkretro{
+    id?: number;
+    folio: number;
+    fecha: string;
+    retroexcavadora: string;
+    codigo_parada: string;
+    p_hora_inicio: string;
+    p_hora_termino: string;
+    codigo_parada2: string;
+    p_hora_inicio2: string;
+    p_hora_termino2: string;
+    frenos_servicios: string;
+    freno_estacionario: string;
+    extintor_manual: string;
+    torreta: string;
+    claxon: string;
+    asiento_cinturon: string;
+    alarma_reversera: string;
+    luces_general: string;
+    pluma_guarda: string;
+    panel_control_jostick: string;
+    estado_llantas: string;
+    estado_estabilizadores: string;
+    tornilleria_general: string;
+    martillo_pica: string;
+    nivel_aceite_motor: string;
+    nivel_aceite_hidraulico: string;
+    nivel_aceite_transmision: string;
+    posibles_fugas: string;
+    lubricacion_general: string;
+    botiquin_primauxilios: string;
+    conos_seguridad: string;
+    kit_herramientas: string;
+    limpieza_equipo: string;
+    observaciones: string;
+    nombre_operador: string;
+    num_empleado: number;
+    supervisor: string;
+    permiso_edicion:string;	
+    revisado_valido:string;
+    created_at?: number;
+    updated_at?: number;
+    
+}

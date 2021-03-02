@@ -1,0 +1,52 @@
+<app-header titulo="Costos de Mantenimiento"></app-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-label  color="danger">
+        *Elige un rango de fechas
+      </ion-label>
+    </ion-card-content>
+    <form  (submit)="consultar()">
+    <ion-item class="top">
+      <ion-label>Fecha inicial</ion-label>
+      <ion-datetime display-format="DD-MM-YYYY" placeholder="dia-mes-año"
+      name="fechainicial" [(ngModel)]="model.fechainicial"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Fecha final</ion-label>
+      <ion-datetime display-format="DD:MM:YYYY" placeholder="dia-mes-año"
+      name="fechafinal" [(ngModel)]="model.fechafinal"></ion-datetime>
+    </ion-item>
+      <ion-button type="submit" 
+                fill="solid" 
+                shape="round"
+                color="primary"
+                >
+          Aceptar
+      </ion-button>
+    </form>
+  </ion-card>
+  <div *ngIf="array != null">
+    <ion-list *ngFor="let item of array | async" >
+      <ion-item>
+        <ion-avatar slot="start" *ngIf="item[6] != null">
+          <img src="https://www.avar-construcciones.com/sistema/img/equipos/{{item[6]}}" />
+        </ion-avatar>
+        <ion-avatar slot="start" *ngIf="item[6] == null">
+          <img src="/assets/sinfoto.png" />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{item[0]}}</h2>
+          <h3>Refacciones <b class="right">{{item[1] | currency: 'USD'}}</b></h3>
+          <h3>Combustibles <b class="right">{{item[2] | currency: 'USD'}}</b></h3>
+          <h3>Fluidos <b class="right">{{item[3] | currency: 'USD'}}</b></h3>
+          <h3>Consumible <b class="right">{{item[4] | currency: 'USD'}}</b></h3>
+          <h3>Mtto. externo <b class="right">{{item[5] | currency: 'USD'}}</b></h3>
+          <b class="total">Total: {{item[1]+item[2]+item[3]+item[4]+item[5] | currency: 'USD'}}</b>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  
+</ion-content>

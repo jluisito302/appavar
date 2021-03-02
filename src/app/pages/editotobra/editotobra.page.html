@@ -1,0 +1,859 @@
+<app-header titulo="Activiades Obra"></app-header>
+
+<ion-content>
+  <form (ngSubmit)="guardar()">
+    <ion-grid fixed>
+      <ion-card>
+        <ion-card-content>
+          <ion-row>
+            <ion-col size="6">
+              <ion-label><b>* </b>Folio</ion-label>
+              <ion-input autofocus required name="folio" type="text"
+                  [(ngModel)]="ot.folio"></ion-input>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label><b>* </b>Fecha</ion-label>
+                    <ion-datetime displayFormat="YYYY MM DD"
+                    placeholder="(Año-Mes-Día)" 
+                    doneText="Aceptar"
+                    cancelText="Cancelar"
+                    required
+                    name="fecha" [(ngModel)]="ot.fecha">
+                    </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-label><b>* </b>Nombre de la obra</ion-label>
+              <br>
+              <ion-select interface="popover" name="camion" [(ngModel)]="ot.nombre_obra">
+                <ion-select-option *ngFor="let obra of obras$ | async" 
+                value="{{ obra.nombre_obra }}">{{ obra.nombre_obra }}</ion-select-option>
+              </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-label>Area</ion-label>
+              <ion-input type="text" [(ngModel)]="ot.area" name="area"></ion-input>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label><b>* </b>Turno</ion-label>
+                <ion-select [(value)]="ot.turno" name="turno" interface="popover" 
+                (ionChange)="optionsFn($event, 'turno')">
+                  <ion-select-option value="1">1</ion-select-option>
+                  <ion-select-option value="2">2</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-content>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">REPORTE DEL PERSONAL</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-label><b>* </b>Nombre del Personal</ion-label>
+                <ion-select interface="popover" name="nombre_personal1" [(ngModel)]="ot.nombre_personal1">
+                  <ion-select-option *ngFor="let person of personal$ | async" 
+                  value="{{ person.nombre }}">{{ person.nombre }}</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-label><b>* </b>Horario inicio</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horario1" placeholder="11:25 AM"
+                  [(ngModel)]="ot.horario1">
+              </ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label><b>* </b>Horario final</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horariofinal1" placeholder="15:18 PM"
+                  [(ngModel)]="ot.horariofinal1">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 1">
+            <ion-col size="12">
+              <ion-label>Nombre del Personal</ion-label>
+                <ion-select interface="popover" name="nombre_personal2" [(ngModel)]="ot.nombre_personal2">
+                  <ion-select-option *ngFor="let person of personal$ | async" 
+                  value="{{ person.nombre }}">{{ person.nombre }}</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 1">
+            <ion-col size="6">
+              <ion-label>Horario</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horario2" placeholder="11:25 AM"
+                  [(ngModel)]="ot.horario2">
+              </ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Horario final</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horariofinal2" placeholder="15:18 PM"
+                  [(ngModel)]="ot.horariofinal2">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 2">
+            <ion-col size="12">
+              <ion-label>Nombre del Personal</ion-label>
+                <ion-select interface="popover" name="nombre_personal3" [(ngModel)]="ot.nombre_personal3">
+                  <ion-select-option *ngFor="let person of personal$ | async" 
+                  value="{{ person.nombre }}">{{ person.nombre }}</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 2">
+            <ion-col size="6">
+              <ion-label>Horario</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horario3" placeholder="11:25 AM"
+                  [(ngModel)]="ot.horario3">
+              </ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Horario final</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horariofinal3" placeholder="15:18 PM"
+                  [(ngModel)]="ot.horariofinal3">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 3">
+            <ion-col size="12">
+              <ion-label>Nombre del Personal</ion-label>
+                <ion-select interface="popover" name="nombre_personal4" [(ngModel)]="ot.nombre_personal4">
+                  <ion-select-option *ngFor="let person of personal$ | async" 
+                  value="{{ person.nombre }}">{{ person.nombre }}</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 3">
+            <ion-col size="6">
+              <ion-label>Horario</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horario4" placeholder="11:25 AM"
+                  [(ngModel)]="ot.horario4">
+              </ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Horario final</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horariofinal4" placeholder="15:18 PM"
+                  [(ngModel)]="ot.horariofinal4">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 4">
+            <ion-col size="12">
+              <ion-label>Nombre del Personal</ion-label>
+                <ion-select interface="popover" name="nombre_personal5" [(ngModel)]="ot.nombre_personal5">
+                  <ion-select-option *ngFor="let person of personal$ | async" 
+                  value="{{ person.nombre }}">{{ person.nombre }}</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 4">
+            <ion-col size="6">
+              <ion-label>Horario</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horario5" placeholder="11:25 AM"
+                  [(ngModel)]="ot.horario5">
+              </ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Horario final</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horariofinal5" placeholder="15:18 PM"
+                  [(ngModel)]="ot.horariofinal5">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 5">
+            <ion-col size="12">
+              <ion-label>Nombre del Personal</ion-label>
+                <ion-select interface="popover" name="nombre_personal6" [(ngModel)]="ot.nombre_personal6">
+                  <ion-select-option *ngFor="let person of personal$ | async" 
+                  value="{{ person.nombre }}">{{ person.nombre }}</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 5">
+            <ion-col size="6">
+              <ion-label>Horario</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horario6" placeholder="11:25 AM"
+                  [(ngModel)]="ot.horario6">
+              </ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Horario final</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horariofinal6" placeholder="15:18 PM"
+                  [(ngModel)]="ot.horariofinal6">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 6">
+            <ion-col size="12">
+              <ion-label>Nombre del Personal</ion-label>
+                <ion-select interface="popover" name="nombre_personal7" [(ngModel)]="ot.nombre_personal7">
+                  <ion-select-option *ngFor="let person of personal$ | async" 
+                  value="{{ person.nombre }}">{{ person.nombre }}</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 6">
+            <ion-col size="6">
+              <ion-label>Horario</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horario7" placeholder="11:25 AM"
+                  [(ngModel)]="ot.horario7">
+              </ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Horario final</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horariofinal7" placeholder="15:18 PM"
+                  [(ngModel)]="ot.horariofinal7">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 7">
+            <ion-col size="12">
+              <ion-label>Nombre del Personal</ion-label>
+                <ion-select interface="popover" name="nombre_personal8" [(ngModel)]="ot.nombre_personal8">
+                  <ion-select-option *ngFor="let person of personal$ | async" 
+                  value="{{ person.nombre }}">{{ person.nombre }}</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 7">
+            <ion-col size="6">
+              <ion-label>Horario</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horario8" placeholder="11:25 AM"
+                  [(ngModel)]="ot.horario8">
+              </ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Horario final</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horariofinal8" placeholder="15:18 PM"
+                  [(ngModel)]="ot.horariofinal8">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 8">
+            <ion-col size="12">
+              <ion-label>Nombre del Personal</ion-label>
+                <ion-select interface="popover" name="nombre_personal9" [(ngModel)]="ot.nombre_personal9">
+                  <ion-select-option *ngFor="let person of personal$ | async" 
+                  value="{{ person.nombre }}">{{ person.nombre }}</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 8">
+            <ion-col size="6">
+              <ion-label>Horario</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horario9" placeholder="11:25 AM"
+                  [(ngModel)]="ot.horario9">
+              </ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Horario final</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horariofinal9" placeholder="15:18 PM"
+                  [(ngModel)]="ot.horariofinal9">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 9">
+            <ion-col size="12">
+              <ion-label>Nombre del Personal</ion-label>
+                <ion-select interface="popover" name="nombre_personal10" [(ngModel)]="ot.nombre_personal10">
+                  <ion-select-option *ngFor="let person of personal$ | async" 
+                  value="{{ person.nombre }}">{{ person.nombre }}</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 9">
+            <ion-col size="6">
+              <ion-label>Horario</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horario10" placeholder="11:25 AM"
+                  [(ngModel)]="ot.horario10">
+              </ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Horario final</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horariofinal10" placeholder="15:18 PM"
+                  [(ngModel)]="ot.horariofinal10">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 10">
+            <ion-col size="12">
+              <ion-label>Nombre del Personal</ion-label>
+                <ion-select interface="popover" name="nombre_personal11" [(ngModel)]="ot.nombre_personal11">
+                  <ion-select-option *ngFor="let person of personal$ | async" 
+                  value="{{ person.nombre }}">{{ person.nombre }}</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 10">
+            <ion-col size="6">
+              <ion-label>Horario</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horario11" placeholder="11:25 AM"
+                  [(ngModel)]="ot.horario11">
+              </ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Horario final</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horariofinal11" placeholder="15:18 PM"
+                  [(ngModel)]="ot.horariofinal11">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 11">
+            <ion-col size="12">
+              <ion-label>Nombre del Personal</ion-label>
+                <ion-select interface="popover" name="nombre_personal12" [(ngModel)]="ot.nombre_personal12">
+                  <ion-select-option *ngFor="let person of personal$ | async" 
+                  value="{{ person.nombre }}">{{ person.nombre }}</ion-select-option>
+                </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contPersonal > 11">
+            <ion-col size="6">
+              <ion-label>Horario</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horario12" placeholder="11:25 AM"
+                  [(ngModel)]="ot.horario12">
+              </ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label>Horario final</ion-label>
+              <ion-datetime display-format="H:mm A" 
+                  picker-format="H:mm A" 
+                  value="" name="horariofinal12" placeholder="15:18 PM"
+                  [(ngModel)]="ot.horariofinal12">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-button  
+              size="small"
+              shape="round"
+              color="primary"
+              (click)="agregarPersonal()"
+              >
+              <ion-icon name="add-outline"></ion-icon>
+              </ion-button>
+              <ion-button  
+              size="small"
+              shape="round"
+              color="danger"
+              (click)="quitarPersonal()"
+              >
+              <ion-icon name="close-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-label><b>* </b>Trabajo Realizado</ion-label>
+              <ion-textarea placeholder="Descripción ..." name="trabajo_realizado" 
+                [(ngModel)]="ot.trabajo_realizado"></ion-textarea>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-content>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">MATERIAL EMPLEADO</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="8">
+              <ion-label>Descripción del Material</ion-label>
+              <br>
+              <ion-select interface="popover" name="id_material1" [(ngModel)]="ot.id_material1">
+                <ion-select-option *ngFor="let mat of materiales1$ | async | filtro: buscarM : 'nombre'" 
+                value="{{ mat.id }}">{{ mat.nombre }}</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Material</ion-label>
+              <ion-input type="text" (ionChange)="onSearchChange($event)" 
+              placeholder="buscar" [debounce]="250" class="azul"
+              > <ion-icon name="search-outline"></ion-icon></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="4">
+              <ion-label>Solicitado</ion-label>
+              <br>
+              <ion-input type="text" name="solicitado1" [(ngModel)]="ot.solicitado1"></ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Sobrante</ion-label>
+              <br>
+              <ion-input type="text" name="sobrante1" [(ngModel)]="ot.sobrante1"></ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Ocupado</ion-label>
+              <br>
+              <ion-input type="text" name="ocupado1" [(ngModel)]="ot.ocupado1"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contMaterial > 1">
+            <ion-col size="8">
+              <ion-label>Descripción del Material</ion-label>
+              <br>
+              <ion-select interface="popover" name="id_material2" 
+              [(ngModel)]="ot.id_material2">
+                <ion-select-option *ngFor="let mat of materiales2$ | async | filtro: buscarM2 : 'nombre'" 
+                value="{{ mat.id }}">{{ mat.nombre }}</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Buscar</ion-label>
+              <ion-input type="text" (ionChange)="onSearchChange2($event)" 
+              [debounce]="250" placeholder="materiales" class="azul"
+              > <ion-icon name="search-outline"></ion-icon></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contMaterial > 1">
+            <ion-col size="4">
+              <ion-label>Solicitado</ion-label>
+              <br>
+              <ion-input type="text" name="solicitado2" [(ngModel)]="ot.solicitado2"></ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Sobrante</ion-label>
+              <br>
+              <ion-input type="text" name="sobrante2" [(ngModel)]="ot.sobrante2"></ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Ocupado</ion-label>
+              <br>
+              <ion-input type="text" name="ocupado2" [(ngModel)]="ot.ocupado2"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contMaterial > 2">
+            <ion-col size="8">
+              <ion-label>Descripción del Material</ion-label>
+              <br>
+              <ion-select interface="popover" name="id_material3" 
+              [(ngModel)]="ot.id_material3">
+                <ion-select-option *ngFor="let mat of materiales3$ | async | filtro: buscarM3 : 'nombre'" 
+                value="{{ mat.id }}">{{ mat.nombre }}</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Buscar</ion-label>
+              <ion-input type="text" (ionChange)="onSearchChange3($event)" 
+              [debounce]="250" placeholder="materiales" class="azul"
+              > <ion-icon name="search-outline"></ion-icon></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contMaterial > 2">
+            <ion-col size="4">
+              <ion-label>Solicitado</ion-label>
+              <br>
+              <ion-input type="text" name="solicitado3" [(ngModel)]="ot.solicitado3"></ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Sobrante</ion-label>
+              <br>
+              <ion-input type="text" name="sobrante3" [(ngModel)]="ot.sobrante3"></ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Ocupado</ion-label>
+              <br>
+              <ion-input type="text" name="ocupado3" [(ngModel)]="ot.ocupado3"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contMaterial > 3">
+            <ion-col size="8">
+              <ion-label>Descripción del Material</ion-label>
+              <br>
+              <ion-select interface="popover" name="id_material4" 
+              [(ngModel)]="ot.id_material4">
+                <ion-select-option *ngFor="let mat of materiales4$ | async | filtro: buscarM4 : 'nombre'" 
+                value="{{ mat.id }}">{{ mat.nombre }}</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Buscar</ion-label>
+              <ion-input type="text" (ionChange)="onSearchChange4($event)" 
+              [debounce]="250" placeholder="materiales" class="azul"
+              > <ion-icon name="search-outline"></ion-icon></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contMaterial > 3">
+            <ion-col size="4">
+              <ion-label>Solicitado</ion-label>
+              <br>
+              <ion-input type="text" name="solicitado4" [(ngModel)]="ot.solicitado4"></ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Sobrante</ion-label>
+              <br>
+              <ion-input type="text" name="sobrante4" [(ngModel)]="ot.sobrante4"></ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Ocupado</ion-label>
+              <br>
+              <ion-input type="text" name="ocupado4" [(ngModel)]="ot.ocupado4"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contMaterial > 4">
+            <ion-col size="8">
+              <ion-label>Descripción del Material</ion-label>
+              <br>
+              <ion-select interface="popover" name="id_material5" 
+              [(ngModel)]="ot.id_material5">
+                <ion-select-option *ngFor="let mat of materiales5$ | async | filtro: buscarM5 : 'nombre'" 
+                value="{{ mat.id }}">{{ mat.nombre }}</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Buscar</ion-label>
+              <ion-input type="text" (ionChange)="onSearchChange5($event)" 
+              [debounce]="250" placeholder="materiales" class="azul"
+              > <ion-icon name="search-outline"></ion-icon></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contMaterial > 4">
+            <ion-col size="4">
+              <ion-label>Solicitado</ion-label>
+              <br>
+              <ion-input type="text" name="solicitado5" [(ngModel)]="ot.solicitado5"></ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Sobrante</ion-label>
+              <br>
+              <ion-input type="text" name="sobrante5" [(ngModel)]="ot.sobrante5"></ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Ocupado</ion-label>
+              <br>
+              <ion-input type="text" name="ocupado5" [(ngModel)]="ot.ocupado5"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contMaterial > 5">
+            <ion-col size="8">
+              <ion-label>Descripción del Material</ion-label>
+              <br>
+              <ion-select interface="popover" name="id_material6" 
+              [(ngModel)]="ot.id_material6">
+                <ion-select-option *ngFor="let mat of materiales6$ | async | filtro: buscarM6 : 'nombre'" 
+                value="{{ mat.id }}">{{ mat.nombre }}</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Buscar</ion-label>
+              <ion-input type="text" (ionChange)="onSearchChange6($event)" 
+              [debounce]="250" placeholder="materiales" class="azul"
+              > <ion-icon name="search-outline"></ion-icon></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="contMaterial > 5">
+            <ion-col size="4">
+              <ion-label>Solicitado</ion-label>
+              <br>
+              <ion-input type="text" name="solicitado6" [(ngModel)]="ot.solicitado6"></ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Sobrante</ion-label>
+              <br>
+              <ion-input type="text" name="sobrante6" [(ngModel)]="ot.sobrante6"></ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Ocupado</ion-label>
+              <br>
+              <ion-input type="text" name="ocupado6" [(ngModel)]="ot.ocupado6"></ion-input>
+            </ion-col>
+          </ion-row>
+         
+          <ion-row>
+            <ion-col size="12">
+              <ion-button  
+              size="small"
+              shape="round"
+              color="primary"
+              (click)="agregarMaterial()"
+              >
+              <ion-icon name="add-outline"></ion-icon>
+              </ion-button>
+              <ion-button  
+              size="small"
+              shape="round"
+              color="danger"
+              (click)="quitarMaterial()"
+              >
+              <ion-icon name="close-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+      
+     
+      <ion-card>
+        <ion-card-content>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">HERRAMIENTAS/MAQUINARIA/EQUIPOS</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="8">
+              <ion-label> Tipo</ion-label>
+              <ion-select interface="popover" (ionChange)="tipo($event)">
+                <ion-select-option value="herramienta">Herramienta</ion-select-option>
+                <ion-select-option value="maquinaria">Maquinaria</ion-select-option>
+                <ion-select-option value="equipo">Equipo</ion-select-option>
+              </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="8">
+              <ion-label>Herram/Maqui/Equipo</ion-label>
+              <br>
+              <ion-select *ngIf="tipohme == 'maquinaria'" interface="popover" name="hme1" 
+              [(ngModel)]="ot.hme1">
+                <ion-select-option *ngFor="let m of maquinaria$ | async" 
+                value="{{ m.num_economico }}">{{ m.num_economico }}</ion-select-option>
+              </ion-select>
+              <ion-select *ngIf="tipohme == 'equipo'" interface="popover" name="hme1" 
+              [(ngModel)]="ot.hme1">
+                <ion-select-option *ngFor="let e of equipos$ | async" 
+                value="{{ e.num_economico }}">{{ e.num_economico }}</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Cantidad</ion-label>
+              <br>
+              <ion-input type="text" name="cantidad1" [(ngModel)]="ot.cantidad1"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="conthme > 1">
+            <ion-col size="8">
+              <ion-label> Tipo</ion-label>
+              <ion-select interface="popover" (ionChange)="tipo2($event)">
+                <ion-select-option value="herramienta">Herramienta</ion-select-option>
+                <ion-select-option value="maquinaria">Maquinaria</ion-select-option>
+                <ion-select-option value="equipo">Equipo</ion-select-option>
+              </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="conthme > 1">
+            <ion-col size="8">
+              <ion-label>Herram/Maqui/Equipo</ion-label>
+              <br>
+              <ion-select *ngIf="tipohme2 == 'maquinaria'" interface="popover" name="hme2" 
+              [(ngModel)]="ot.hme2">
+                <ion-select-option *ngFor="let m of maquinaria$ | async" 
+                value="{{ m.num_economico }}">{{ m.num_economico }}</ion-select-option>
+              </ion-select>
+              <ion-select *ngIf="tipohme2 == 'equipo'" interface="popover" name="hme2" 
+              [(ngModel)]="ot.hme2">
+                <ion-select-option *ngFor="let e of equipos$ | async" 
+                value="{{ e.num_economico }}">{{ e.num_economico }}</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Cantidad</ion-label>
+              <br>
+              <ion-input type="text" name="cantidad2" [(ngModel)]="ot.cantidad2"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="conthme > 2">
+            <ion-col size="8">
+              <ion-label> Tipo</ion-label>
+              <ion-select interface="popover" (ionChange)="tipo3($event)">
+                <ion-select-option value="herramienta">Herramienta</ion-select-option>
+                <ion-select-option value="maquinaria">Maquinaria</ion-select-option>
+                <ion-select-option value="equipo">Equipo</ion-select-option>
+              </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="conthme > 2">
+            <ion-col size="8">
+              <ion-label>Herram/Maqui/Equipo</ion-label>
+              <br>
+              <ion-select *ngIf="tipohme3 == 'maquinaria'" interface="popover" name="hme3" 
+              [(ngModel)]="ot.hme3">
+                <ion-select-option *ngFor="let m of maquinaria$ | async" 
+                value="{{ m.num_economico }}">{{ m.num_economico }}</ion-select-option>
+              </ion-select>
+              <ion-select *ngIf="tipohme3 == 'equipo'" interface="popover" name="hme3" 
+              [(ngModel)]="ot.hme3">
+                <ion-select-option *ngFor="let e of equipos$ | async" 
+                value="{{ e.num_economico }}">{{ e.num_economico }}</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Cantidad</ion-label>
+              <br>
+              <ion-input type="text" name="cantidad3" [(ngModel)]="ot.cantidad3"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="conthme > 3">
+            <ion-col size="8">
+              <ion-label> Tipo</ion-label>
+              <ion-select interface="popover" (ionChange)="tipo4($event)">
+                <ion-select-option value="herramienta">Herramienta</ion-select-option>
+                <ion-select-option value="maquinaria">Maquinaria</ion-select-option>
+                <ion-select-option value="equipo">Equipo</ion-select-option>
+              </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="conthme > 3">
+            <ion-col size="8">
+              <ion-label>Herram/Maqui/Equipo</ion-label>
+              <br>
+              <ion-select *ngIf="tipohme4 == 'maquinaria'" interface="popover" name="hme4" 
+              [(ngModel)]="ot.hme4">
+                <ion-select-option *ngFor="let m of maquinaria$ | async" 
+                value="{{ m.num_economico }}">{{ m.num_economico }}</ion-select-option>
+              </ion-select>
+              <ion-select *ngIf="tipohme4 == 'equipo'" interface="popover" name="hme4" 
+              [(ngModel)]="ot.hme4">
+                <ion-select-option *ngFor="let e of equipos$ | async" 
+                value="{{ e.num_economico }}">{{ e.num_economico }}</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>Cantidad</ion-label>
+              <br>
+              <ion-input type="text" name="cantidad4" [(ngModel)]="ot.cantidad4"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-button  
+              size="small"
+              shape="round"
+              color="primary"
+              (click)="ahme()"
+              >
+              <ion-icon name="add-outline"></ion-icon>
+              </ion-button>
+              <ion-button  
+              size="small"
+              shape="round"
+              color="danger"
+              (click)="qhme()"
+              >
+              <ion-icon name="close-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-content>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">DETALLES GENERALES DE LA OBRA</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-label>Medidas</ion-label>
+              <ion-textarea placeholder="Medidas: Ancho, Largo, Alto..." name="medidas"
+              [(ngModel)]="ot.medidas"></ion-textarea>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-label><b>* </b>Avance del día</ion-label>
+              <ion-textarea placeholder="Avance del Día..." name="avance_dia" 
+              [(ngModel)]="ot.avance_dia"></ion-textarea>
+            </ion-col>
+          </ion-row>
+          <ion-row class="header">
+            <ion-col>
+              <ion-label color="tertiary">OBSERVACIONES/REFERENCIA ILUSTRATIVA</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-label>Observaciones</ion-label>
+              <br>
+              <ion-textarea placeholder="Observaciones ..." name="observaciones" 
+              [(ngModel)]="ot.observaciones"></ion-textarea>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-input type="file" placeholder="Elegir fotografía" name="fotografia"
+              [(ngModel)]="ot.fotografia"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+      
+      
+      <ion-row>
+        <ion-col size="12">
+        <ion-button type="submit" 
+                expand="block" 
+                fill="solid" 
+                shape="round"
+                color="primary"
+                >
+        Guardar
+        </ion-button>
+        </ion-col>
+      </ion-row>
+
+
+    </ion-grid>
+  </form>
+</ion-content>

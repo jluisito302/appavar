@@ -1,0 +1,17 @@
+<app-header titulo="Antigüedad"></app-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item  *ngFor="let item of array | async">
+      <ion-label>
+        <h2>Nombre: <b>{{item[1]}}</b></h2>
+        <h2>Puesto: <b>{{item[2]}}</b></h2>
+        <h2>Tiempo ingreso: <b>{{item[3]}}</b></h2>
+        <h2>Estatus: 
+          <b class="danger" *ngIf="item[0] == 'Baja'">Baja</b>
+          <b class="azul" *ngIf="item[0] == 'Alta'">Alta</b>
+        </h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

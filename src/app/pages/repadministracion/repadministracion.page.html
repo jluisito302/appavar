@@ -1,0 +1,82 @@
+<app-header titulo="Reportes Administración"></app-header>
+
+<ion-content>
+  <div class="grey">
+  <ion-item>
+    <ion-label>Cobro de Obras</ion-label>
+  </ion-item>
+  <ion-row>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/cobrosgenerales']">
+        <ion-card-content>
+            <h2>Cobros Generales</h2>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/cobrosfechafecha']">
+        <ion-card-content>
+            <h2>Cobros de fecha a fecha</h2>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-item>
+    <ion-label>Créditos</ion-label>
+  </ion-item>
+  <ion-row>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/estatuscreditos']">
+        <ion-card-content>
+            <h2>Estatus de créditos</h2>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/acredespecificos']">
+        <ion-card-content>
+            <h2>Abonos a creditos</h2>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-item>
+    <ion-label>Nóminas (Sumatorias)</ion-label>
+  </ion-item>
+  <ion-row>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/nominasprfechas']">
+        <ion-card-content>
+            <h2>Nominas por fechas</h2>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/nominaspsemanas']">
+        <ion-card-content>
+            <h2>Nominas por semanas</h2>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-item>
+    <ion-label>Listas de rayas (Sumatorias)</ion-label>
+  </ion-item>
+  <ion-row>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/listarfechas']">
+        <ion-card-content>
+            <h2>Listas de raya por fechas</h2>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/listarsemanas']">
+        <ion-card-content>
+            <h2>Listas de raya por semanas</h2>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</div>  
+</ion-content>

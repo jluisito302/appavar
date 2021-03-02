@@ -1,0 +1,70 @@
+<app-header titulo="Almacén"></app-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/stockarticulos']">
+          <div class="center">
+              <ion-icon name="layers-outline" class="iconos"></ion-icon>
+          </div>
+          <ion-card-content>
+              <h2>Stock Articulos</h2>
+          </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/entradas']">
+          <div class="center">
+              <ion-icon name="return-down-forward-outline" class="iconos"></ion-icon>
+          </div>
+          <ion-card-content>
+              <h2>Entrada de Artículos</h2>
+          </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/salidas']">
+          <div class="center">
+              <ion-icon name="return-up-forward-outline" class="iconos"></ion-icon>
+          </div>
+          <ion-card-content>
+              <h2>Salida de Artículos</h2>
+          </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/herramientas']">
+          <div class="center">
+              <ion-icon name="construct-outline" class="iconos"></ion-icon>
+          </div>
+          <ion-card-content>
+              <h2>Herramientas</h2>
+          </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/herrprestadas']">
+          <div class="center">
+              <ion-icon name="reader-outline" class="iconos"></ion-icon>
+          </div>
+          <ion-card-content>
+              <h2>Herramientas prestadas</h2>
+          </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/maqligera']">
+          <div class="center">
+              <ion-icon name="easel-outline" class="iconos"></ion-icon>
+          </div>
+          <ion-card-content>
+              <h2>Maquinaria Ligera</h2>
+          </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>
